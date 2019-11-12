@@ -1,0 +1,37 @@
+{
+  "name": "best-blind",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "@types/uuid": "^3.4.6",
+    "apollo-server": "^2.9.7",
+    "ts-node": "^8.5.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "pg": "^7.12.1",
+    "type-graphql": "^0.17.5",
+    "typeorm": "^0.2.20",
+    "uuid": "^3.3.3"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "postinstall": "npm run build",
+    "build": "tsc",
+    "migration:create": "npx ts-node ./node_modules/.bin/typeorm migration:generate -n $NAME -c development",
+    "migration:revert": "npx ts-node ./node_modules/.bin/typeorm migration:revert -c development",
+    "test": "jest --detectOpenHandles --forceExit",
+    "ci:test": "jest --ci --runInBand --detectOpenHandles --forceExit"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
+  }
+}
