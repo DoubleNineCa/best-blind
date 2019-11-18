@@ -15,9 +15,54 @@ type Customer {
   address: String!
   phone: String!
   email: String!
+  orders: [Order!]!
+  type: String!
   note: String!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+type Item {
+  id: ID!
+  uuid: String!
+  width: Float!
+  height: Float!
+  handrailMaterial: Material!
+  handrailType: String!
+}
+
+enum Material {
+  ROPE
+  BEADS
+  METAL
+}
+
+type Order {
+  id: ID!
+  uuid: String!
+  orderNo: String!
+  hst: Boolean!
+  deposit: Float!
+  installation: Float!
+  total: Float!
+  items: [Item!]!
+  status: Status!
+  payment: String!
+  orderDate: DateTime!
+  installDate: DateTime!
 }
 
 type Query {
   getUsers: [Customer!]!
+}
+
+enum Status {
+  MEASURE
+  MANUFACTURE
+  INSTALL
+  RAMAINING
+  COMPLETE
 }
