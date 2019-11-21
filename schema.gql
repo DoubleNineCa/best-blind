@@ -25,6 +25,22 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+type Fabric {
+  id: ID!
+  uuid: String!
+  name: String!
+  color: String!
+  manufacturer: String!
+}
+
+type Grade {
+  id: ID!
+  uuid: String!
+  name: String!
+  price: Float!
+  fabrics: [Fabric!]!
+}
+
 type Item {
   id: ID!
   uuid: String!
@@ -38,6 +54,11 @@ enum Material {
   ROPE
   BEADS
   METAL
+}
+
+type Mutation {
+  registerGrade(price: Float!, name: String!): Grade!
+  registerFabric(manufacturer: String!, name: String!): Fabric!
 }
 
 type Order {

@@ -14,6 +14,10 @@ export class Fabric extends BaseEntityWithUuid {
 
     @Field()
     @Column()
+    color: string;
+
+    @Field()
+    @Column()
     manufacturer: string;
 
     @ManyToOne(() => Grade, grade => grade.fabrics)
