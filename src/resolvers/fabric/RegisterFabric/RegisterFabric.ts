@@ -17,11 +17,10 @@ export class RegisterFabricResolver {
         if (!existFabric) {
             const selectedGrade = await Grade.findOne({ where: { name: grade } });
             if (!selectedGrade) {
-                throw new Error(`${grade} does not exist on the list`);
-            } else {
-                // selectedGrade.fabrics.push(existFabric);
+                throw new Error(`${grade} grade does not exist on the list`);
             }
-            const newFabric = Fabric.create({ name, manufacturer, color });
+
+            const newFabric = Fabric.create({ name, manufacturer, color, grade });
             existFabric = await Fabric.save(newFabric);
         } else {
             throw new Error(`${name} fabric item is already exist!`);
