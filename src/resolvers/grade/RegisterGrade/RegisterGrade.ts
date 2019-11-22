@@ -14,7 +14,10 @@ export class RegisterGradeResolver {
         console.log(existGrade, price, name);
 
         if (!existGrade) {
-            const newGrade = Grade.create({ name, price });
+            const newGrade = Grade.create({
+                name,
+                price
+            });
             existGrade = await Grade.save(newGrade);
         }
         return existGrade;

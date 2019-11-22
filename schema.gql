@@ -31,6 +31,7 @@ type Fabric {
   name: String!
   color: String!
   manufacturer: String!
+  grade: String!
 }
 
 type Grade {
@@ -38,7 +39,6 @@ type Grade {
   uuid: String!
   name: String!
   price: Float!
-  fabrics: [Fabric!]!
 }
 
 type Item {
@@ -58,7 +58,7 @@ enum Material {
 
 type Mutation {
   registerGrade(price: Float!, name: String!): Grade!
-  registerFabric(manufacturer: String!, name: String!): Fabric!
+  registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
 }
 
 type Order {
