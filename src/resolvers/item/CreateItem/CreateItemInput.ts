@@ -17,10 +17,10 @@ export class CreateItemInput {
     @Field()
     height: number;
 
-    @Field({ nullable: true })
+    @Field({ defaultValue: "R" })
     handrailType: string;
 
-    @Field(() => Material)
-    handrailMaterial: Material;
+    // @Field({defaultValue: "METAL"})
+    // handrailMaterial: Material;
 
 }

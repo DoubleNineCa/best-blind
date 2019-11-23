@@ -8,6 +8,14 @@ type BaseEntityWithUuid {
   uuid: String!
 }
 
+input CreateItemInput {
+  orderId: Float!
+  blindId: Float!
+  width: Float!
+  height: Float!
+  handrailType: String = "R"
+}
+
 type Customer {
   id: ID!
   uuid: String!
@@ -44,6 +52,7 @@ type Grade {
 type Item {
   id: ID!
   uuid: String!
+  blindId: Float!
   width: Float!
   height: Float!
   handrailMaterial: Material!
@@ -59,6 +68,8 @@ enum Material {
 type Mutation {
   registerGrade(price: Float!, name: String!): Grade!
   registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
+  createItem(data: CreateItemInput!): Item!
+  placeOrder(data: PlaceOrderInput!): Order!
 }
 
 type Order {
@@ -76,8 +87,19 @@ type Order {
   installDate: DateTime!
 }
 
+input PlaceOrderInput {
+  orderNo: String!
+  hst: Boolean
+  deposit: Float
+  installation: Float
+  status: String
+  payment: String
+}
+
 type Query {
   getUsers: [Customer!]!
+  getOrder(orderNo: String!): Order!
+  getOrders: [Order!]!
 }
 
 enum Status {

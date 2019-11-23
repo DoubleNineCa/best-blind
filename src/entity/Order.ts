@@ -25,7 +25,7 @@ export class Order extends BaseEntityWithUuid {
     orderNo: string;
 
     @Field()
-    @Column({ nullable: true })
+    @Column({ default: true })
     hst: boolean;
 
     @Field()

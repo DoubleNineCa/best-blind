@@ -10,10 +10,10 @@ import { Order } from "../../../entity/Order";
 export class CreateItemResolver {
     @Mutation(() => Item)
     async createItem(
-        @Arg("data") { orderId, blindId, width, height, handrailType, handrailMaterial }: CreateItemInput
+        @Arg("data") { orderId, blindId, width, height, handrailType }: CreateItemInput
     ): Promise<Item | undefined> {
 
-        const order = await Order.findOne(orderId);
+        const order = await Order.findOne(orderId, { relations: ["items"] });
         const blind = await Fabric.findOne(blindId);
 
         if (!blind || !order) {
@@ -24,20 +24,20 @@ export class CreateItemResolver {
             blindId,
             width,
             height,
-            handrailType,
-            handrailMaterial
+            handrailType
         })
 
         await getManager().transaction(async transactionalEntityManager => {
-            if (!order!.items) {
-                order!.items = new Array(newItem);
+            if (order.items.length === 0) {
+                order.items = new Array(newItem);
             } else {
                 order!.items.push(newItem);
             }
             await transactionalEntityManager.save(newItem);
             await transactionalEntityManager.save(order);
+
         });
 
-        return new Item();
+        return newItem;
     }
 }
