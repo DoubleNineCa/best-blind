@@ -36,9 +36,9 @@ export class Order extends BaseEntityWithUuid {
     @Column({ nullable: true })
     installation: number;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
-    total: number;
+    total?: number;
 
     @Field(() => [Item])
     @OneToMany(() => Item, item => item.order)

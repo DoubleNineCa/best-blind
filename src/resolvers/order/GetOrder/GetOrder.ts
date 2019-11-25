@@ -8,6 +8,6 @@ export class GetOrderResolver {
     async getOrder(
         @Arg("orderNo") orderNo: string
     ): Promise<Order | undefined> {
-        return Order.findOne({ where: { orderNo: orderNo } });
+        return await Order.findOne({ where: { orderNo: orderNo }, relations: ["items"] });
     }
 }

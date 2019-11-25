@@ -66,6 +66,7 @@ enum Material {
 }
 
 type Mutation {
+  registerCustomer(note: String!, email: String!, address: String!, phone: String!, name: String!): Customer!
   registerGrade(price: Float!, name: String!): Grade!
   registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
   createItem(data: CreateItemInput!): Item!
@@ -79,7 +80,7 @@ type Order {
   hst: Boolean!
   deposit: Float!
   installation: Float!
-  total: Float!
+  total: Float
   items: [Item!]!
   status: Status!
   payment: String!
@@ -88,6 +89,7 @@ type Order {
 }
 
 input PlaceOrderInput {
+  customerId: Float!
   orderNo: String!
   hst: Boolean
   deposit: Float
@@ -97,7 +99,7 @@ input PlaceOrderInput {
 }
 
 type Query {
-  getUsers: [Customer!]!
+  getCustomers: [Customer!]!
   getOrder(orderNo: String!): Order!
   getOrders: [Order!]!
 }

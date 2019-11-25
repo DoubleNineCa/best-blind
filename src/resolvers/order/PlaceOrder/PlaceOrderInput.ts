@@ -6,6 +6,9 @@ import { Status } from "../../../entity/Order";
 @InputType()
 export class PlaceOrderInput {
     @Field()
+    customerId: number;
+
+    @Field()
     @Length(1, 8)
     orderNo: string;
 

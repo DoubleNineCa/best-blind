@@ -20,7 +20,7 @@ export class CreateItemResolver {
             throw new Error("Something went wrong");
         }
 
-        const newItem = Item.create({
+        let newItem = Item.create({
             blindId,
             width,
             height,
@@ -33,7 +33,7 @@ export class CreateItemResolver {
             } else {
                 order!.items.push(newItem);
             }
-            await transactionalEntityManager.save(newItem);
+            newItem = await transactionalEntityManager.save(newItem);
             await transactionalEntityManager.save(order);
 
         });
