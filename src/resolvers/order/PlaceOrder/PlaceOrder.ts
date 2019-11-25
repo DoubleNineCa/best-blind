@@ -19,10 +19,6 @@ export class PlaceOrderResolver {
             where: { orderNo: orderNo },
             relations: ["items"]
         });
-        // const existOrder = await Order.find({ where: { orderNo: orderNo }, relations: ["items"] });
-        // const existOrder = await Order.find({ where: { orderNo: orderNo } });
-
-        console.log(existOrder);
 
         if (existOrder.length > 0) {
             throw new Error(`Order number ${orderNo} already exist`);
