@@ -8,6 +8,14 @@ type BaseEntityWithUuid {
   uuid: String!
 }
 
+input CreateItemInput {
+  orderId: Float!
+  blindId: Float!
+  width: Float!
+  height: Float!
+  handrailType: String = "R"
+}
+
 type Customer {
   id: ID!
   uuid: String!
@@ -25,9 +33,26 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+type Fabric {
+  id: ID!
+  uuid: String!
+  name: String!
+  color: String!
+  manufacturer: String!
+  grade: String!
+}
+
+type Grade {
+  id: ID!
+  uuid: String!
+  name: String!
+  price: Float!
+}
+
 type Item {
   id: ID!
   uuid: String!
+  blindId: Float!
   width: Float!
   height: Float!
   handrailMaterial: Material!
@@ -40,6 +65,14 @@ enum Material {
   METAL
 }
 
+type Mutation {
+  registerCustomer(note: String!, email: String!, address: String!, phone: String!, name: String!): Customer!
+  registerGrade(price: Float!, name: String!): Grade!
+  registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
+  createItem(data: CreateItemInput!): Item!
+  placeOrder(data: PlaceOrderInput!): Order!
+}
+
 type Order {
   id: ID!
   uuid: String!
@@ -47,7 +80,7 @@ type Order {
   hst: Boolean!
   deposit: Float!
   installation: Float!
-  total: Float!
+  total: Float
   items: [Item!]!
   status: Status!
   payment: String!
@@ -55,8 +88,20 @@ type Order {
   installDate: DateTime!
 }
 
+input PlaceOrderInput {
+  customerId: Float!
+  orderNo: String!
+  hst: Boolean
+  deposit: Float
+  installation: Float
+  status: String
+  payment: String
+}
+
 type Query {
-  getUsers: [Customer!]!
+  getCustomers: [Customer!]!
+  getOrder(orderNo: String!): Order!
+  getOrders: [Order!]!
 }
 
 enum Status {

@@ -20,6 +20,10 @@ export class Item extends BaseEntityWithUuid {
 
     @Field()
     @Column()
+    blindId: number;
+
+    @Field()
+    @Column()
     width: number;
 
     @Field()

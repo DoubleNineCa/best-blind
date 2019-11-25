@@ -5,7 +5,7 @@ import { Customer } from "../../../entity/Customer";
 @Resolver()
 export class GetCustomersResolver {
     @Query(() => [Customer])
-    async getUsers(): Promise<Customer[]> {
-        return Customer.find();
+    async getCustomers(): Promise<Customer[]> {
+        return Customer.find({ relations: ["orders", "orders.items"] });
     }
 }
