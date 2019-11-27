@@ -84,6 +84,7 @@ type Mutation {
   createItem(data: ItemInput!, blindId: Float!, orderId: Float!): Item!
   updateItem(data: ItemInput!, blindId: Float!, itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
+  updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
 }
 
 type Order {
@@ -98,7 +99,7 @@ type Order {
   status: Status!
   payment: String!
   orderDate: DateTime!
-  installDate: DateTime!
+  installDate: DateTime
 }
 
 input PlaceOrderInput {

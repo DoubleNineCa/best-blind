@@ -56,7 +56,7 @@ export class Order extends BaseEntityWithUuid {
     @Column()
     orderDate: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     installDate: Date;
 
