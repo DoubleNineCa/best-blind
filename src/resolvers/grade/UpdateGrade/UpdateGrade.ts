@@ -12,7 +12,7 @@ export class UpdateGradeResolver {
         @Arg("data")
         { name, price }: GradeInput
     ): Promise<Boolean> {
-        const grade = Grade.findOne(gradeId);
+        const grade = await Grade.findOne(gradeId);
 
         if (!grade) {
             throw new Error(`${name} of grade does not exist`);
@@ -24,8 +24,8 @@ export class UpdateGradeResolver {
                     Grade,
                     { id: gradeId },
                     {
-                        name,
-                        price
+                        name: name === undefined ? grade.name : name,
+                        price: price === 0 ? grade.price : price
                     }
                 )
                 .then(() => {

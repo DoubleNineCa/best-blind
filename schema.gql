@@ -42,6 +42,13 @@ type Fabric {
   grade: String!
 }
 
+input FabricInput {
+  name: String
+  color: String
+  manufacturer: String
+  grade: String
+}
+
 type Grade {
   id: ID!
   uuid: String!
@@ -75,6 +82,7 @@ type Mutation {
   registerGrade(data: GradeInput!): Grade!
   updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
   registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
+  updateFabric(data: FabricInput!, fabricId: Float!): Boolean!
   createItem(data: CreateItemInput!): Item!
   placeOrder(data: PlaceOrderInput!): Order!
 }
@@ -107,6 +115,7 @@ input PlaceOrderInput {
 type Query {
   getCustomers: [Customer!]!
   getGrades: [Grade!]!
+  getFabrics: [Fabric!]!
   getOrder(orderNo: String!): Order!
   getOrders: [Order!]!
 }
