@@ -1,15 +1,15 @@
 import { Min, Max } from "class-validator";
 import { Field, InputType } from "type-graphql";
-import { Material } from "../../../entity/Item";
+import { Material } from "../../entity/Item";
 
 @InputType()
-export class CreateItemInput {
+export class ItemInput {
 
-    @Field()
-    orderId: number;
+    // @Field()
+    // orderId: number;
 
-    @Field()
-    blindId: number;
+    // @Field()
+    // blindId: number;
 
     @Field()
     width: number;

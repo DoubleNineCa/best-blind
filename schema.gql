@@ -8,14 +8,6 @@ type BaseEntityWithUuid {
   uuid: String!
 }
 
-input CreateItemInput {
-  orderId: Float!
-  blindId: Float!
-  width: Float!
-  height: Float!
-  handrailType: String = "R"
-}
-
 type Customer {
   id: ID!
   uuid: String!
@@ -71,6 +63,12 @@ type Item {
   handrailType: String!
 }
 
+input ItemInput {
+  width: Float!
+  height: Float!
+  handrailType: String = "R"
+}
+
 enum Material {
   ROPE
   BEADS
@@ -83,7 +81,8 @@ type Mutation {
   updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
   registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
   updateFabric(data: FabricInput!, fabricId: Float!): Boolean!
-  createItem(data: CreateItemInput!): Item!
+  createItem(data: ItemInput!, blindId: Float!, orderId: Float!): Item!
+  updateItem(data: ItemInput!, blindId: Float!, itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
 }
 

@@ -2,7 +2,7 @@ import { getManager } from "typeorm";
 import { Resolver, Mutation, Arg } from "type-graphql";
 
 import { Item, Material } from "../../../entity/Item";
-import { CreateItemInput } from "./CreateItemInput";
+import { ItemInput } from "../ItemInput";
 import { Fabric } from "../../../entity/Fabric";
 import { Order } from "../../../entity/Order";
 
@@ -10,7 +10,9 @@ import { Order } from "../../../entity/Order";
 export class CreateItemResolver {
     @Mutation(() => Item)
     async createItem(
-        @Arg("data") { orderId, blindId, width, height, handrailType }: CreateItemInput
+        @Arg("orderId") orderId: number,
+        @Arg("blindId") blindId: number,
+        @Arg("data") { width, height, handrailType }: ItemInput
     ): Promise<Item | undefined> {
 
         const order = await Order.findOne(orderId, { relations: ["items"] });

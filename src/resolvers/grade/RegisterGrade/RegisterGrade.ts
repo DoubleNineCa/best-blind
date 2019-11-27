@@ -11,7 +11,6 @@ export class RegisterGradeResolver {
     ): Promise<Grade | undefined> {
 
         let existGrade = await Grade.findOne({ where: { name: name } });
-        console.log(existGrade, price, name);
 
         if (!existGrade) {
             const newGrade = Grade.create({
