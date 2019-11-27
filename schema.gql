@@ -49,6 +49,11 @@ type Grade {
   price: Float!
 }
 
+input GradeInput {
+  name: String!
+  price: Float!
+}
+
 type Item {
   id: ID!
   uuid: String!
@@ -67,7 +72,8 @@ enum Material {
 
 type Mutation {
   registerCustomer(note: String!, email: String!, address: String!, phone: String!, name: String!): Customer!
-  registerGrade(price: Float!, name: String!): Grade!
+  registerGrade(data: GradeInput!): Grade!
+  updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
   registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
   createItem(data: CreateItemInput!): Item!
   placeOrder(data: PlaceOrderInput!): Order!
@@ -100,6 +106,7 @@ input PlaceOrderInput {
 
 type Query {
   getCustomers: [Customer!]!
+  getGrades: [Grade!]!
   getOrder(orderNo: String!): Order!
   getOrders: [Order!]!
 }
