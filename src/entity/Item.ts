@@ -21,7 +21,7 @@ export class Item extends BaseEntityWithUuid {
 
     @Field()
     @Column()
-    blindId: number;
+    partId: number;
 
     @Field()
     @Column()

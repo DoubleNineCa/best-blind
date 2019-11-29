@@ -9,7 +9,7 @@ export class UpdateItemResolver {
     @Mutation(() => Boolean)
     async updateItem(
         @Arg("itemId") itemId: number,
-        @Arg("blindId") blindId: number,
+        @Arg("partId") partId: number,
         @Arg("data")
         { width, height, handrailType }: ItemInput
     ): Promise<Boolean> {
@@ -25,7 +25,7 @@ export class UpdateItemResolver {
                     Item,
                     { id: itemId },
                     {
-                        blindId: blindId === undefined ? item.blindId : blindId,
+                        partId: partId === undefined ? item.partId : partId,
                         width: width === undefined ? item.width : width,
                         height: height === 0 ? item.height : height,
                         handrailType: handrailType === undefined ? item.handrailType : handrailType

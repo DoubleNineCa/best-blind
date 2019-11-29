@@ -2,7 +2,7 @@ import { Length } from "class-validator";
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class FabricInput {
+export class PartInput {
     @Field({ nullable: true })
     @Length(1, 255)
     name: string;

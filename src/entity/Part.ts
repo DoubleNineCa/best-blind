@@ -1,11 +1,24 @@
-import { Entity, Column, ManyToOne } from "typeorm";
+import { Entity, Column } from "typeorm";
 import { ObjectType, Field, registerEnumType } from "type-graphql";
 
 import { BaseEntityWithUuid } from "../utils/BaseEntityWithUuid";
 
+export enum Type {
+    FABRIC = "FABRIC",
+    COMPONENT = "COMPONENT"
+}
+
+registerEnumType(Type, {
+    name: "Type"
+});
+
 @ObjectType()
 @Entity()
-export class Fabric extends BaseEntityWithUuid {
+export class Part extends BaseEntityWithUuid {
+
+    @Field()
+    @Column()
+    type: Type;
 
     @Field()
     @Column()

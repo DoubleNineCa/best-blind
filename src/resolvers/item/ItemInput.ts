@@ -11,16 +11,16 @@ export class ItemInput {
     // @Field()
     // blindId: number;
 
-    @Field()
+    @Field({ nullable: true })
     width: number;
 
-    @Field()
+    @Field({ nullable: true })
     height: number;
 
-    @Field({ defaultValue: "R" })
+    @Field({ nullable: true })
     handrailType: string;
 
-    @Field()
+    @Field({ nullable: true })
     handrailMaterial: Material;
 
 }
