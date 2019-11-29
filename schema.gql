@@ -57,8 +57,10 @@ type Item {
   id: ID!
   uuid: String!
   blindId: Float!
+  itemName: String!
   width: Float!
   height: Float!
+  price: Float!
   handrailMaterial: Material!
   handrailType: String!
 }
@@ -67,12 +69,14 @@ input ItemInput {
   width: Float!
   height: Float!
   handrailType: String = "R"
+  handrailMaterial: String!
 }
 
 enum Material {
   ROPE
   BEADS
   METAL
+  MOTOR
 }
 
 type Mutation {

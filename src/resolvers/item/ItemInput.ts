@@ -20,7 +20,7 @@ export class ItemInput {
     @Field({ defaultValue: "R" })
     handrailType: string;
 
-    // @Field({defaultValue: "METAL"})
-    // handrailMaterial: Material;
+    @Field()
+    handrailMaterial: Material;
 
 }

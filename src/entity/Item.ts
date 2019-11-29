@@ -7,7 +7,8 @@ import { Order } from "../entity/Order";
 export enum Material {
     ROPE = "ROPE",
     BEADS = "BEADS",
-    METAL = "METAL"
+    METAL = "METAL",
+    MOTOR = "MOTOR"
 }
 
 registerEnumType(Material, {
@@ -24,14 +25,22 @@ export class Item extends BaseEntityWithUuid {
 
     @Field()
     @Column()
+    itemName: string;
+
+    @Field()
+    @Column({ nullable: true })
     width: number;
 
     @Field()
-    @Column()
+    @Column({ nullable: true })
     height: number;
 
+    @Field()
+    @Column("float", { default: 0 })
+    price: number;
+
     @Field(() => Material)
-    @Column({ default: Material.METAL })
+    @Column({ default: Material.METAL, nullable: true })
     handrailMaterial: Material;
 
     @Field()
