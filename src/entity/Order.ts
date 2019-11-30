@@ -36,6 +36,10 @@ export class Order extends BaseEntityWithUuid {
     @Column({ nullable: true })
     installation: number;
 
+    @Field()
+    @Column({ default: 0 })
+    installationDiscount: number;
+
     @Field({ nullable: true })
     @Column({ nullable: true })
     total?: number;

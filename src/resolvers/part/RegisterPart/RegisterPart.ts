@@ -1,16 +1,13 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
 import { Part, Type } from "../../../entity/Part";
 import { Grade } from "../../../entity/Grade";
+import { PartInput } from "../PartInput";
 
 @Resolver()
 export class RegisterPartResolver {
     @Mutation(() => Part)
     async registerPart(
-        @Arg("type") type: Type,
-        @Arg("name") name: string,
-        @Arg("manufacturer") manufacturer: string,
-        @Arg("color") color: string,
-        @Arg("grade") grade: string
+        @Arg("data") { type, name, manufacturer, color, grade }: PartInput
     ): Promise<Part | undefined> {
 
         let existFabric = await Part.findOne({ where: { name: name } });
@@ -24,7 +21,7 @@ export class RegisterPartResolver {
             const newFabric = Part.create({ type, name, manufacturer, color, grade });
             existFabric = await Part.save(newFabric);
         } else {
-            throw new Error(`${name} part item is already exist!`);
+            throw new Error(`${name} part is already exist!`);
         }
         return existFabric;
     }
