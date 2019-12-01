@@ -51,6 +51,13 @@ export class CreateItemResolver {
             } else {
                 order!.items.push(newItem);
             }
+
+            order.total = order.items.reduce((accumulator, item) => {
+                return accumulator + item.price * (100 - order.discount) / 100;
+            }, 0);
+
+            order.total = order.total + order.installation - order.deposit - order.installationDiscount;
+
             newItem = await transactionalEntityManager.save(newItem);
             await transactionalEntityManager.save(order);
 

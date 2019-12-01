@@ -33,6 +33,10 @@ export class Order extends BaseEntityWithUuid {
     deposit: number;
 
     @Field()
+    @Column({ default: 0 })
+    discount: number;
+
+    @Field()
     @Column({ nullable: true })
     installation: number;
 

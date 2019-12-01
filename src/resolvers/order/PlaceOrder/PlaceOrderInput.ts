@@ -19,7 +19,13 @@ export class PlaceOrderInput {
     deposit?: number;
 
     @Field({ nullable: true })
-    installation?: number;
+    discount?: number;
+
+    @Field({ defaultValue: 0 })
+    installation: number;
+
+    @Field({ defaultValue: 0 })
+    installationDiscount: number;
 
     @Field({ nullable: true })
     status?: Status;

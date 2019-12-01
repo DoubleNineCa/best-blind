@@ -11,7 +11,7 @@ export class UpdateOrderResolver {
     async updateOrder(
         @Arg("orderId") orderId: number,
         @Arg("installDate") installDate: Date,
-        @Arg("data") { hst, deposit, installation, status, payment }: PlaceOrderInput
+        @Arg("data") { hst, deposit, discount, installation, installationDiscount, status, payment }: PlaceOrderInput
     ): Promise<Boolean> {
         const order = await Order.findOne(orderId, { relations: ["items"] });
         // hst, deposit, installation, total, status, payment, installDate
@@ -28,7 +28,9 @@ export class UpdateOrderResolver {
                     {
                         hst: hst === undefined ? order.hst : hst,
                         deposit: deposit === undefined ? order.deposit : deposit,
+                        discount: discount === undefined ? order.discount : discount,
                         installation: installation === undefined ? order.installation : installation,
+                        installationDiscount: installationDiscount === undefined ? order.installationDiscount : installationDiscount,
                         status: status === undefined ? order.status : status,
                         payment: payment === undefined ? order.payment : payment,
                         installDate: installDate === undefined ? order.installDate : installDate

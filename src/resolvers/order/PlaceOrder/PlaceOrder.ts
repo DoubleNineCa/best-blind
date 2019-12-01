@@ -10,17 +10,18 @@ import { Customer } from "../../../entity/Customer";
 export class PlaceOrderResolver {
     @Mutation(() => Order)
     async placeOrder(
-        @Arg("data") { customerId, orderNo, hst, deposit, installation, status, payment }: PlaceOrderInput
+        @Arg("data") { customerId, orderNo, hst, deposit, discount, installation, installationDiscount, status, payment }: PlaceOrderInput
     ): Promise<Order | undefined> {
 
         const customer = await Customer.findOne(customerId, { relations: ["orders", "orders.items"] });
 
-        const existOrder = await Order.find({
-            where: { orderNo: orderNo },
-            relations: ["items"]
-        });
+        if (!customer) {
+            throw new Error("customer information is not exist");
+        }
 
-        if (existOrder.length > 0) {
+        const existOrder = customer.orders.filter(order => order.orderNo === orderNo)[0];
+
+        if (existOrder) {
             throw new Error(`Order number ${orderNo} already exist`);
         }
 
@@ -28,7 +29,9 @@ export class PlaceOrderResolver {
             orderNo,
             hst,
             deposit,
+            discount,
             installation,
+            installationDiscount,
             status,
             payment,
             orderDate: new Date()

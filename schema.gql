@@ -67,7 +67,7 @@ type Mutation {
   registerCustomer(note: String!, email: String!, address: String!, phone: String!, name: String!): Customer!
   registerGrade(data: GradeInput!): Grade!
   updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
-  registerPart(grade: String!, color: String!, manufacturer: String!, name: String!, type: String!): Part!
+  registerPart(data: PartInput!): Part!
   updatePart(data: PartInput!, partId: Float!): Boolean!
   createItem(data: ItemInput!, partId: Float!, orderId: Float!): Item!
   updateItem(data: ItemInput!, partId: Float!, itemId: Float!): Boolean!
@@ -81,7 +81,9 @@ type Order {
   orderNo: String!
   hst: Boolean!
   deposit: Float!
+  discount: Float!
   installation: Float!
+  installationDiscount: Float!
   total: Float
   items: [Item!]!
   status: Status!
@@ -101,6 +103,7 @@ type Part {
 }
 
 input PartInput {
+  type: String!
   name: String
   color: String
   manufacturer: String
@@ -112,7 +115,9 @@ input PlaceOrderInput {
   orderNo: String!
   hst: Boolean
   deposit: Float
-  installation: Float
+  discount: Float
+  installation: Float = 0
+  installationDiscount: Float = 0
   status: String
   payment: String
 }
