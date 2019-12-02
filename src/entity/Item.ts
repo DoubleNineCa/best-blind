@@ -28,11 +28,11 @@ export class Item extends BaseEntityWithUuid {
     itemName: string;
 
     @Field()
-    @Column({ nullable: true })
+    @Column("float", { nullable: true })
     width: number;
 
     @Field()
-    @Column({ nullable: true })
+    @Column("float", { nullable: true })
     height: number;
 
     @Field()

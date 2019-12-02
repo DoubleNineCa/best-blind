@@ -1,11 +1,12 @@
 import { getManager } from "typeorm";
 import { Resolver, Mutation, Arg } from "type-graphql";
 
-import { Item, Material } from "../../../entity/Item";
+import { Item } from "../../../entity/Item";
 import { ItemInput } from "../ItemInput";
 import { Part, Type } from "../../../entity/Part";
 import { Order } from "../../../entity/Order";
 import { Grade } from "../../../entity/Grade";
+import { totalCal } from "../../../utils/TotalCalculator"
 
 @Resolver()
 export class CreateItemResolver {
@@ -52,12 +53,8 @@ export class CreateItemResolver {
                 order!.items.push(newItem);
             }
 
-            order.total = order.items.reduce((accumulator, item) => {
-                return accumulator + item.price * (100 - order.discount) / 100;
-            }, 0);
-
-            order.total = order.total + order.installation - order.deposit - order.installationDiscount;
-
+            order.total = await totalCal(order.items, order.deposit, order.discount, order.installation, order.installationDiscount);
+            console.log(order.total);
             newItem = await transactionalEntityManager.save(newItem);
             await transactionalEntityManager.save(order);
 

@@ -1,11 +1,20 @@
-import { Resolver, Query } from "type-graphql";
+import { Resolver, Query, Arg } from "type-graphql";
 
-import { Part } from "../../../entity/Part";
+import { Part, Type } from "../../../entity/Part";
+import { Like } from "typeorm";
 
 @Resolver()
 export class GetPartsResolver {
     @Query(() => [Part])
-    async getParts(): Promise<Part[]> {
-        return Part.find();
+    async getParts(
+        @Arg("type") type: Type,
+        @Arg("keyword") keyword?: string
+    ): Promise<Part[]> {
+        return Part.find({
+            where: [
+                { type, name: Like(`%${keyword}%`) },
+                { type, manufacturer: Like(`%${keyword}%`) },
+            ]
+        });
     }
 }

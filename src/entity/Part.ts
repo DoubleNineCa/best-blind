@@ -8,9 +8,19 @@ export enum Type {
     COMPONENT = "COMPONENT"
 }
 
+export enum Kind {
+    COMBI = "COMBI",
+    ROLL = "ROLL",
+    TRIPLE = "TRIPLE"
+}
+
 registerEnumType(Type, {
     name: "Type"
 });
+
+registerEnumType(Kind, {
+    name: "Kind"
+})
 
 @ObjectType()
 @Entity()
@@ -19,6 +29,10 @@ export class Part extends BaseEntityWithUuid {
     @Field()
     @Column()
     type: Type;
+
+    @Field()
+    @Column({ nullable: true })
+    kind: Kind;
 
     @Field()
     @Column()
@@ -35,4 +49,12 @@ export class Part extends BaseEntityWithUuid {
     @Field()
     @Column()
     grade: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    modelNo: string;
+
+    @Field()
+    @Column({ default: 0 })
+    stocks: number;
 }

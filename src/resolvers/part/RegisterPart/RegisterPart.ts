@@ -7,7 +7,7 @@ import { PartInput } from "../PartInput";
 export class RegisterPartResolver {
     @Mutation(() => Part)
     async registerPart(
-        @Arg("data") { type, name, manufacturer, color, grade }: PartInput
+        @Arg("data") { type, kind, name, manufacturer, color, grade, modelNo, stocks }: PartInput
     ): Promise<Part | undefined> {
 
         let existFabric = await Part.findOne({ where: { name: name } });
@@ -18,7 +18,7 @@ export class RegisterPartResolver {
                 throw new Error(`${grade} grade does not exist on the list`);
             }
 
-            const newFabric = Part.create({ type, name, manufacturer, color, grade });
+            const newFabric = Part.create({ type, kind, name, manufacturer, color, grade, modelNo, stocks });
             existFabric = await Part.save(newFabric);
         } else {
             throw new Error(`${name} part is already exist!`);

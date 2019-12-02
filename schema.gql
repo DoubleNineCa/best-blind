@@ -85,7 +85,7 @@ type Order {
   installation: Float!
   installationDiscount: Float!
   total: Float
-  items: [Item!]!
+  items: [Item!]
   status: Status!
   payment: String!
   orderDate: DateTime!
@@ -96,18 +96,24 @@ type Part {
   id: ID!
   uuid: String!
   type: String!
+  kind: String!
   name: String!
   color: String!
   manufacturer: String!
   grade: String!
+  modelNo: String
+  stocks: Float!
 }
 
 input PartInput {
   type: String!
+  kind: String
   name: String
   color: String
   manufacturer: String
   grade: String
+  modelNo: String
+  stocks: Float = 0
 }
 
 input PlaceOrderInput {
@@ -125,7 +131,7 @@ input PlaceOrderInput {
 type Query {
   getCustomers: [Customer!]!
   getGrades: [Grade!]!
-  getParts: [Part!]!
+  getParts(keyword: String!, type: String!): [Part!]!
   getOrder(orderNo: String!): Order!
   getOrders: [Order!]!
 }
