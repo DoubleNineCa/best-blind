@@ -47,6 +47,8 @@ type Item {
   price: Float!
   handrailMaterial: Material!
   handrailType: String!
+  handrailLength: Float!
+  coverColor: String!
 }
 
 input ItemInput {
@@ -58,7 +60,7 @@ input ItemInput {
 
 enum Material {
   ROPE
-  BEADS
+  CRYSTAL
   METAL
   MOTOR
 }
