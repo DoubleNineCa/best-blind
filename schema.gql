@@ -90,6 +90,7 @@ type Order {
   payment: String!
   orderDate: DateTime!
   installDate: DateTime
+  customer: Customer!
 }
 
 type Part {

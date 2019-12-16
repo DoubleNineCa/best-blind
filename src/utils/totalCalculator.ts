@@ -8,4 +8,4 @@ export const totalCal =
         return roundCal(total + installation - deposit - installationDiscount);
     }
 
-export const roundCal = (input: number) => { return Math.round(input * 100) / 100 }
+export const roundCal = (input: number) => { return Math.round(input * 100) / 100 } 

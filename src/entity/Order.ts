@@ -68,6 +68,7 @@ export class Order extends BaseEntityWithUuid {
     @Column({ nullable: true })
     installDate: Date;
 
+    @Field(() => Customer)
     @ManyToOne(() => Customer, customer => customer.orders)
     customer: Customer;
 }

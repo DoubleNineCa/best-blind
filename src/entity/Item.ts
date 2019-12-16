@@ -6,11 +6,18 @@ import { Order } from "../entity/Order";
 
 export enum Material {
     ROPE = "ROPE",
-    BEADS = "BEADS",
+    CRYSTAL = "CRYSTAL",
     METAL = "METAL",
     MOTOR = "MOTOR"
 }
 
+export enum CoverColor {
+    WHITE = "WHITE",
+    IVORY = "IVORY",
+    GREY = "GREY",
+    BLACK = "BLACK",
+    BROWN = "BROWN"
+}
 registerEnumType(Material, {
     name: "Material"
 });
@@ -46,6 +53,14 @@ export class Item extends BaseEntityWithUuid {
     @Field()
     @Column({ default: "R" })
     handrailType: string;
+
+    @Field()
+    @Column("float")
+    handrailLength: number;
+
+    @Field()
+    @Column()
+    coverColor: CoverColor;
 
     @ManyToOne(() => Order, order => order.items)
     order: Order;

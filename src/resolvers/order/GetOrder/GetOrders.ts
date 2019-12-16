@@ -6,6 +6,6 @@ import { Order } from "../../../entity/Order";
 export class GetOrdersResolver {
     @Query(() => [Order])
     async getOrders(): Promise<Order[]> {
-        return Order.find({ relations: ["items"] });
+        return Order.find({ relations: ["items", "customer"] });
     }
 }
