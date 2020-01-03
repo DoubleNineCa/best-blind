@@ -1,6 +1,6 @@
 import { Min, Max } from "class-validator";
 import { Field, InputType } from "type-graphql";
-import { Material } from "../../entity/Item";
+import { Material, CoverColor } from "../../entity/Item";
 
 @InputType()
 export class ItemInput {
@@ -22,5 +22,11 @@ export class ItemInput {
 
     @Field({ nullable: true })
     handrailMaterial: Material;
+
+    @Field()
+    handrailLength: number;
+
+    @Field()
+    coverColor: CoverColor;
 
 }

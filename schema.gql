@@ -56,17 +56,19 @@ input ItemInput {
   height: Float
   handrailType: String
   handrailMaterial: String
+  handrailLength: Float!
+  coverColor: String!
 }
 
 enum Material {
-  ROPE
+  BASIC
   CRYSTAL
   METAL
   MOTOR
 }
 
 type Mutation {
-  registerCustomer(note: String!, email: String!, address: String!, phone: String!, name: String!): Customer!
+  registerCustomer(data: RegisterCustomerInput!): Customer!
   registerGrade(data: GradeInput!): Grade!
   updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
   registerPart(data: PartInput!): Part!
@@ -132,11 +134,19 @@ input PlaceOrderInput {
 }
 
 type Query {
-  getCustomers: [Customer!]!
+  getCustomers(keyword: String): [Customer!]!
   getGrades: [Grade!]!
   getParts(keyword: String!, type: String!): [Part!]!
   getOrder(orderNo: String!): Order!
   getOrders: [Order!]!
+}
+
+input RegisterCustomerInput {
+  name: String!
+  address: String!
+  phone: String!
+  email: String!
+  note: String!
 }
 
 enum Status {

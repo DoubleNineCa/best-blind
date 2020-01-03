@@ -5,7 +5,7 @@ import { BaseEntityWithUuid } from "../utils/BaseEntityWithUuid";
 import { Order } from "../entity/Order";
 
 export enum Material {
-    ROPE = "ROPE",
+    BASIC = "BASIC",
     CRYSTAL = "CRYSTAL",
     METAL = "METAL",
     MOTOR = "MOTOR"
