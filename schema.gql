@@ -75,6 +75,7 @@ type Mutation {
   updatePart(data: PartInput!, partId: Float!): Boolean!
   createItem(data: ItemInput!, partId: Float!, orderId: Float!): Item!
   updateItem(data: ItemInput!, partId: Float!, itemId: Float!): Boolean!
+  deleteItem(itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
   updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
 }

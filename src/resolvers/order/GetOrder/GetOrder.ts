@@ -1,7 +1,7 @@
 import { Resolver, Query, UseMiddleware, Arg } from "type-graphql";
 
 import { Order } from "../../../entity/Order";
-import { Raw, MoreThan } from "typeorm";
+import { getRepository } from "typeorm";
 
 @Resolver()
 export class GetOrderResolver {
@@ -17,6 +17,38 @@ export class GetOrderResolver {
             });
             return orders[0];
         }
-        return await Order.findOne({ where: { orderNo: orderNo }, relations: ["items", "customer"] });
+
+        const orders = await getRepository(Order)
+            .createQueryBuilder("order")
+            .leftJoinAndSelect(
+                "order.customer",
+                "customer"
+            )
+            .leftJoinAndSelect(
+                "order.items",
+                "item"
+            )
+            .where("order.orderNo = :orderNo", { orderNo: orderNo })
+            .orderBy("item.id", "ASC")
+            .getMany();
+
+        return orders[0];
+
+        // await Order.findOne({ where: { orderNo: orderNo }, relations: ["items", "customer"] });
+
+
+        // return await getRepository(Customer)
+        //     .createQueryBuilder("customer")
+        //     .leftJoinAndSelect(
+        //         "customer.orders",
+        //         "order"
+        //     )
+        //     .leftJoinAndSelect(
+        //         "order.items",
+        //         "item"
+        //     )
+        //     .orderBy("order.orderNo", "DESC")
+        //     .addOrderBy("item.id", "ASC")
+        //     .getMany();
     }
 }
