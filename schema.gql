@@ -134,7 +134,8 @@ input PlaceOrderInput {
 }
 
 type Query {
-  getCustomers(keyword: String): [Customer!]!
+  getCustomers: [Customer!]!
+  getCustomer(id: Float!): Customer!
   getGrades: [Grade!]!
   getParts(keyword: String!, type: String!): [Part!]!
   getOrder(orderNo: String!): Order!
