@@ -69,6 +69,6 @@ export class Order extends BaseEntityWithUuid {
     installDate: Date;
 
     @Field(() => Customer)
-    @ManyToOne(() => Customer, customer => customer.orders)
+    @ManyToOne(() => Customer, customer => customer.orders, { onDelete: "CASCADE" })
     customer: Customer;
 }

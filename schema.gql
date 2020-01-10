@@ -69,6 +69,8 @@ enum Material {
 
 type Mutation {
   registerCustomer(data: RegisterCustomerInput!): Customer!
+  updateCustomer(data: UpdateCustomerInput!, id: Float!): Boolean!
+  deleteCustomer(id: Float!): Boolean!
   registerGrade(data: GradeInput!): Grade!
   updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
   registerPart(data: PartInput!): Part!
@@ -157,4 +159,12 @@ enum Status {
   INSTALL
   RAMAINING
   COMPLETE
+}
+
+input UpdateCustomerInput {
+  name: String
+  address: String
+  phone: String
+  email: String
+  note: String
 }
