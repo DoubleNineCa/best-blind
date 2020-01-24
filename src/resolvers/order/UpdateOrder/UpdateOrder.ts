@@ -1,12 +1,14 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
-import { Order, Status } from "../../../entity/Order";
+import { Order } from "../../../entity/Order";
+import { isAuth } from "../../../utils/isAuth";
 import { PlaceOrderInput } from "../PlaceOrder/PlaceOrderInput";
 
 
 @Resolver()
 export class UpdateOrderResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Boolean)
     async updateOrder(
         @Arg("orderId") orderId: number,

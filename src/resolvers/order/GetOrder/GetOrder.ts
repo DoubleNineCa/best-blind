@@ -1,14 +1,20 @@
-import { Resolver, Query, UseMiddleware, Arg } from "type-graphql";
+import { Resolver, Query, UseMiddleware, Arg, Ctx } from "type-graphql";
+import { getRepository } from "typeorm";
 
 import { Order } from "../../../entity/Order";
-import { getRepository } from "typeorm";
+import { isAuth } from "../../../utils/isAuth";
+import { Context } from "../../../types/Context"
+
 
 @Resolver()
 export class GetOrderResolver {
+    @UseMiddleware(isAuth)
     @Query(() => Order)
     async getOrder(
+        @Ctx() context: Context,
         @Arg("orderNo") orderNo: string
     ): Promise<Order | undefined> {
+        console.log(context.req.session)
         if (orderNo === "last") {
             const orders = await Order.find({
                 order: { orderNo: "DESC" },

@@ -68,6 +68,9 @@ enum Material {
 }
 
 type Mutation {
+  login(password: String!, staffId: String!): Staff
+  logout: Boolean!
+  registerStaff(data: RegisterInput!): Staff!
   registerCustomer(data: RegisterCustomerInput!): Customer!
   updateCustomer(data: UpdateCustomerInput!, id: Float!): Boolean!
   deleteCustomer(id: Float!): Boolean!
@@ -80,6 +83,7 @@ type Mutation {
   deleteItem(itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
   updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
+  deleteOrder(id: Float!): Boolean!
 }
 
 type Order {
@@ -151,6 +155,18 @@ input RegisterCustomerInput {
   phone: String!
   email: String!
   note: String!
+}
+
+input RegisterInput {
+  staffId: String!
+  password: String!
+}
+
+type Staff {
+  id: ID!
+  uuid: String!
+  staffId: String!
+  password: String!
 }
 
 enum Status {

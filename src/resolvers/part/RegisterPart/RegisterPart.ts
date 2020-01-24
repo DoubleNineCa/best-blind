@@ -1,10 +1,13 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
-import { Part, Type } from "../../../entity/Part";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
+
+import { Part } from "../../../entity/Part";
 import { Grade } from "../../../entity/Grade";
 import { PartInput } from "../PartInput";
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class RegisterPartResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Part)
     async registerPart(
         @Arg("data") { type, kind, name, manufacturer, color, grade, modelNo, stocks }: PartInput

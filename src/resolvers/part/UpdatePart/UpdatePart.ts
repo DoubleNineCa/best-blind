@@ -1,11 +1,13 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Part } from "../../../entity/Part";
 import { PartInput } from "../PartInput";
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class UpdatePartResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Boolean)
     async updatePart(
         @Arg("partId") partId: number,

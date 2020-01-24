@@ -1,23 +1,22 @@
-import { getManager } from "typeorm";
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
-import { Item } from "../../../entity/Item";
+import { Order } from "../../../entity/Order";
 import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
-export class DeleteItemResolver {
+export class DeleteOrderResolver {
     @UseMiddleware(isAuth)
     @Mutation(() => Boolean)
-    async deleteItem(
-        @Arg("itemId") itemId: number,
+    async deleteOrder(
+        @Arg("id") id: number,
     ): Promise<Boolean> {
-        const item = await Item.findOne(itemId);
+        const order = await Order.findOne(id, { relations: ["items"] });
 
-        if (!item) {
+        if (!order) {
             throw new Error("Something went wrong");
         }
 
-        await Item.delete(itemId)
+        await Order.delete(id);
 
         return true;
     }

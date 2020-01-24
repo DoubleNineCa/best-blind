@@ -1,5 +1,5 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Item } from "../../../entity/Item";
 import { ItemInput } from "../ItemInput";
@@ -7,9 +7,11 @@ import { Part, Type } from "../../../entity/Part";
 import { Order } from "../../../entity/Order";
 import { Grade } from "../../../entity/Grade";
 import { totalCal } from "../../../utils/TotalCalculator"
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class CreateItemResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Item)
     async createItem(
         @Arg("orderId") orderId: number,

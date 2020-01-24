@@ -1,11 +1,13 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Grade } from "../../../entity/Grade";
 import { GradeInput } from "../GradeInput";
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class UpdateGradeResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Boolean)
     async updateGrade(
         @Arg("gradeId") gradeId: number,

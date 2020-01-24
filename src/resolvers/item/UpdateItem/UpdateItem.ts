@@ -1,12 +1,14 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Item } from "../../../entity/Item";
 import { Part } from "../../../entity/Part";
 import { ItemInput } from "../ItemInput";
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class UpdateItemResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Boolean)
     async updateItem(
         @Arg("itemId") itemId: number,
@@ -17,6 +19,8 @@ export class UpdateItemResolver {
         const item = await Item.findOne(itemId);
         const part = await Part.findOne(partId);
 
+        console.log(itemId);
+        console.log(item, part);
         if (!part || !item) {
             throw new Error("Something went wrong");
         }

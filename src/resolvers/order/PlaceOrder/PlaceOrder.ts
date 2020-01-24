@@ -1,13 +1,14 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Order } from "../../../entity/Order";
 import { PlaceOrderInput } from "./PlaceOrderInput";
-import { Item } from "../../../entity/Item";
+import { isAuth } from "../../../utils/isAuth";
 import { Customer } from "../../../entity/Customer";
 
 @Resolver()
 export class PlaceOrderResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Order)
     async placeOrder(
         @Arg("data") { customerId, orderNo, hst, deposit, discount, installation, installationDiscount, status, payment }: PlaceOrderInput
