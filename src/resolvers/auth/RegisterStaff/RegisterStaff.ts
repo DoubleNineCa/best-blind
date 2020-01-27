@@ -1,14 +1,16 @@
-import { Resolver, Mutation, Ctx, Arg } from "type-graphql";
+import { Resolver, Mutation, Ctx, Arg, UseMiddleware } from "type-graphql";
 import { getManager } from "typeorm";
 import * as bcrypt from "bcryptjs";
 
 import { Staff } from "../../../entity/Staff";
 import { Context } from "../../../types/Context"
 import { RegisterInput } from "./RegisterInput";
+import { isAuth } from "../../../utils/isAuth";
 
 
 @Resolver()
 export class RegisterStaffResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Staff)
     async registerStaff(
         @Arg("data")

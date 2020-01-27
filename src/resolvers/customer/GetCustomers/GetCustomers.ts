@@ -1,10 +1,12 @@
-import { Resolver, Query, Arg } from "type-graphql";
+import { Resolver, Query, Arg, UseMiddleware } from "type-graphql";
 
 import { Customer } from "../../../entity/Customer";
-import { Like, getRepository } from "typeorm";
+import { isAuth } from "../../../utils/isAuth";
+import { getRepository } from "typeorm";
 
 @Resolver()
 export class GetCustomersResolver {
+    @UseMiddleware(isAuth)
     @Query(() => [Customer])
     async getCustomers(): Promise<Customer[]> {
         return await getRepository(Customer)

@@ -8,10 +8,7 @@ import { Context } from "../../../types/Context"
 export class GetOrdersResolver {
     @UseMiddleware(isAuth)
     @Query(() => [Order])
-    async getOrders(
-        @Ctx() context: Context,
-    ): Promise<Order[]> {
-        console.log("orders : ", context.req.session)
+    async getOrders(): Promise<Order[]> {
         return Order.find({ relations: ["items", "customer"], order: { orderNo: "DESC" } });
     }
 }

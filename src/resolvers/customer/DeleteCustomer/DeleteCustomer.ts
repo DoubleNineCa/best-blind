@@ -1,9 +1,11 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Customer } from "../../../entity/Customer";
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class DeleteCustomerResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Boolean)
     async deleteCustomer(
         @Arg("id") id: number,

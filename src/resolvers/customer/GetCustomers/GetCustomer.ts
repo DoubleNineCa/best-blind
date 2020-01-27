@@ -1,10 +1,11 @@
-import { Resolver, Query, Arg } from "type-graphql";
+import { Resolver, Query, Arg, UseMiddleware } from "type-graphql";
 
 import { Customer } from "../../../entity/Customer";
-import { Like } from "typeorm";
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class GetCustomerResolver {
+    @UseMiddleware(isAuth)
     @Query(() => Customer)
     async getCustomer(
         @Arg("id") id: number

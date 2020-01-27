@@ -19,8 +19,6 @@ export class UpdateItemResolver {
         const item = await Item.findOne(itemId);
         const part = await Part.findOne(partId);
 
-        console.log(itemId);
-        console.log(item, part);
         if (!part || !item) {
             throw new Error("Something went wrong");
         }

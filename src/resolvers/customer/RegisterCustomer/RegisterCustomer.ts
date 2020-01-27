@@ -1,11 +1,13 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Customer } from "../../../entity/Customer";
+import { isAuth } from "../../../utils/isAuth";
 import { RegisterCustomerInput } from "./registerCustomerInput"
 
 @Resolver()
 export class RegisterCustomerResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Customer)
     async registerCustomer(
         @Arg("data") registerCustomerInput: RegisterCustomerInput
