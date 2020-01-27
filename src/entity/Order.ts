@@ -33,14 +33,22 @@ export class Order extends BaseEntityWithUuid {
     deposit: number;
 
     @Field()
+    @Column({ default: 0 })
+    discount: number;
+
+    @Field()
     @Column({ nullable: true })
     installation: number;
 
-    @Field({ nullable: true })
-    @Column({ nullable: true })
-    total?: number;
+    @Field()
+    @Column({ default: 0 })
+    installationDiscount: number;
 
-    @Field(() => [Item])
+    @Field({ nullable: true })
+    @Column("float", { default: 0 })
+    total: number;
+
+    @Field(() => [Item], { nullable: true })
     @OneToMany(() => Item, item => item.order)
     items: Item[];
 
@@ -56,10 +64,11 @@ export class Order extends BaseEntityWithUuid {
     @Column()
     orderDate: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     installDate: Date;
 
-    @ManyToOne(() => Customer, customer => customer.orders)
+    @Field(() => Customer)
+    @ManyToOne(() => Customer, customer => customer.orders, { onDelete: "CASCADE" })
     customer: Customer;
 }

@@ -5,11 +5,19 @@ import { BaseEntityWithUuid } from "../utils/BaseEntityWithUuid";
 import { Order } from "../entity/Order";
 
 export enum Material {
-    ROPE = "ROPE",
-    BEADS = "BEADS",
-    METAL = "METAL"
+    BASIC = "BASIC",
+    CRYSTAL = "CRYSTAL",
+    METAL = "METAL",
+    MOTOR = "MOTOR"
 }
 
+export enum CoverColor {
+    WHITE = "WHITE",
+    IVORY = "IVORY",
+    GREY = "GREY",
+    BLACK = "BLACK",
+    BROWN = "BROWN"
+}
 registerEnumType(Material, {
     name: "Material"
 });
@@ -20,24 +28,40 @@ export class Item extends BaseEntityWithUuid {
 
     @Field()
     @Column()
-    blindId: number;
+    partId: number;
 
     @Field()
     @Column()
+    itemName: string;
+
+    @Field()
+    @Column("float", { nullable: true })
     width: number;
 
     @Field()
-    @Column()
+    @Column("float", { nullable: true })
     height: number;
 
+    @Field()
+    @Column("float", { default: 0 })
+    price: number;
+
     @Field(() => Material)
-    @Column({ default: Material.METAL })
+    @Column({ default: Material.METAL, nullable: true })
     handrailMaterial: Material;
 
     @Field()
     @Column({ default: "R" })
     handrailType: string;
 
-    @ManyToOne(() => Order, order => order.items)
+    @Field()
+    @Column("float")
+    handrailLength: number;
+
+    @Field()
+    @Column()
+    coverColor: CoverColor;
+
+    @ManyToOne(() => Order, order => order.items, { onDelete: "CASCADE" })
     order: Order;
 }

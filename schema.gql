@@ -8,14 +8,6 @@ type BaseEntityWithUuid {
   uuid: String!
 }
 
-input CreateItemInput {
-  orderId: Float!
-  blindId: Float!
-  width: Float!
-  height: Float!
-  handrailType: String = "R"
-}
-
 type Customer {
   id: ID!
   uuid: String!
@@ -33,15 +25,6 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
-type Fabric {
-  id: ID!
-  uuid: String!
-  name: String!
-  color: String!
-  manufacturer: String!
-  grade: String!
-}
-
 type Grade {
   id: ID!
   uuid: String!
@@ -49,28 +32,58 @@ type Grade {
   price: Float!
 }
 
+input GradeInput {
+  name: String!
+  price: Float!
+}
+
 type Item {
   id: ID!
   uuid: String!
-  blindId: Float!
+  partId: Float!
+  itemName: String!
   width: Float!
   height: Float!
+  price: Float!
   handrailMaterial: Material!
   handrailType: String!
+  handrailLength: Float!
+  coverColor: String!
+}
+
+input ItemInput {
+  width: Float
+  height: Float
+  handrailType: String
+  handrailMaterial: String
+  handrailLength: Float!
+  coverColor: String!
 }
 
 enum Material {
-  ROPE
-  BEADS
+  BASIC
+  CRYSTAL
   METAL
+  MOTOR
 }
 
 type Mutation {
-  registerCustomer(note: String!, email: String!, address: String!, phone: String!, name: String!): Customer!
-  registerGrade(price: Float!, name: String!): Grade!
-  registerFabric(grade: String!, color: String!, manufacturer: String!, name: String!): Fabric!
-  createItem(data: CreateItemInput!): Item!
+  login(password: String!, staffId: String!): Staff
+  logout: Boolean!
+  registerStaff(data: RegisterInput!): Staff!
+  registerCustomer(data: RegisterCustomerInput!): Customer!
+  updateCustomer(data: UpdateCustomerInput!, id: Float!): Boolean!
+  deleteCustomer(id: Float!): Boolean!
+  registerGrade(data: GradeInput!): Grade!
+  updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
+  registerPart(data: PartInput!): Part!
+  updatePart(data: PartInput!, partId: Float!): Boolean!
+  createItem(data: ItemInput!, partId: Float!, orderId: Float!): Item!
+  updateItem(data: ItemInput!, partId: Float!, itemId: Float!): Boolean!
+  deleteItem(itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
+  updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
+  deleteOrder(id: Float!): Boolean!
 }
 
 type Order {
@@ -79,13 +92,40 @@ type Order {
   orderNo: String!
   hst: Boolean!
   deposit: Float!
+  discount: Float!
   installation: Float!
+  installationDiscount: Float!
   total: Float
-  items: [Item!]!
+  items: [Item!]
   status: Status!
   payment: String!
   orderDate: DateTime!
-  installDate: DateTime!
+  installDate: DateTime
+  customer: Customer!
+}
+
+type Part {
+  id: ID!
+  uuid: String!
+  type: String!
+  kind: String!
+  name: String!
+  color: String!
+  manufacturer: String!
+  grade: String!
+  modelNo: String
+  stocks: Float!
+}
+
+input PartInput {
+  type: String!
+  kind: String
+  name: String
+  color: String
+  manufacturer: String
+  grade: String
+  modelNo: String
+  stocks: Float = 0
 }
 
 input PlaceOrderInput {
@@ -93,15 +133,40 @@ input PlaceOrderInput {
   orderNo: String!
   hst: Boolean
   deposit: Float
-  installation: Float
+  discount: Float
+  installation: Float = 0
+  installationDiscount: Float = 0
   status: String
   payment: String
 }
 
 type Query {
   getCustomers: [Customer!]!
+  getCustomer(id: Float!): Customer!
+  getGrades: [Grade!]!
+  getParts(keyword: String!, type: String!): [Part!]!
   getOrder(orderNo: String!): Order!
   getOrders: [Order!]!
+}
+
+input RegisterCustomerInput {
+  name: String!
+  address: String!
+  phone: String!
+  email: String!
+  note: String!
+}
+
+input RegisterInput {
+  staffId: String!
+  password: String!
+}
+
+type Staff {
+  id: ID!
+  uuid: String!
+  staffId: String!
+  password: String!
 }
 
 enum Status {
@@ -110,4 +175,12 @@ enum Status {
   INSTALL
   RAMAINING
   COMPLETE
+}
+
+input UpdateCustomerInput {
+  name: String
+  address: String
+  phone: String
+  email: String
+  note: String
 }

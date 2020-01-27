@@ -1,30 +1,53 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
-import { Item, Material } from "../../../entity/Item";
-import { CreateItemInput } from "./CreateItemInput";
-import { Fabric } from "../../../entity/Fabric";
+import { Item } from "../../../entity/Item";
+import { ItemInput } from "../ItemInput";
+import { Part, Type } from "../../../entity/Part";
 import { Order } from "../../../entity/Order";
+import { Grade } from "../../../entity/Grade";
+import { totalCal } from "../../../utils/TotalCalculator"
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class CreateItemResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Item)
     async createItem(
-        @Arg("data") { orderId, blindId, width, height, handrailType }: CreateItemInput
+        @Arg("orderId") orderId: number,
+        @Arg("partId") partId: number,
+        @Arg("data") { width, height, handrailType, handrailMaterial, handrailLength, coverColor }: ItemInput
     ): Promise<Item | undefined> {
 
         const order = await Order.findOne(orderId, { relations: ["items"] });
-        const blind = await Fabric.findOne(blindId);
+        const part = await Part.findOne(partId);
 
-        if (!blind || !order) {
+        if (!part || !order) {
             throw new Error("Something went wrong");
         }
 
+        const grade = await Grade.findOne({ where: { name: part.grade } });
+
+        if (!grade) {
+            throw new Error("Price doesn't match");
+        }
+        // basically, 1.5 width * height / 10000 is the minimum
+        // installation fee should be given at least 2 inputs one for regular the other is for discount separately.
+        // extra items won't be adjusted any discount from the top
+        const areaMulti = width * height / 10000;
+
+        const basePrice = part.type === Type.FABRIC ? (areaMulti < 1.5 ? 1.5 : Math.round(areaMulti * 10) / 10) * grade.price : grade.price;
+
         let newItem = Item.create({
-            blindId,
+            partId,
+            itemName: part.name,
             width,
             height,
-            handrailType
+            price: basePrice,
+            handrailType,
+            handrailMaterial,
+            handrailLength,
+            coverColor
         })
 
         await getManager().transaction(async transactionalEntityManager => {
@@ -33,6 +56,8 @@ export class CreateItemResolver {
             } else {
                 order!.items.push(newItem);
             }
+
+            order.total = await totalCal(order.items, order.deposit, order.discount, order.installation, order.installationDiscount);
             newItem = await transactionalEntityManager.save(newItem);
             await transactionalEntityManager.save(order);
 

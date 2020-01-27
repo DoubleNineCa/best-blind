@@ -1,17 +1,19 @@
 import { getManager } from "typeorm";
 import { Resolver, Mutation, Ctx, UseMiddleware, Arg } from "type-graphql";
+
 import { Grade } from "../../../entity/Grade";
+import { GradeInput } from "../GradeInput";
+import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class RegisterGradeResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Grade)
     async registerGrade(
-        @Arg("name") name: string,
-        @Arg("price") price: number
+        @Arg("data") { name, price }: GradeInput
     ): Promise<Grade | undefined> {
 
         let existGrade = await Grade.findOne({ where: { name: name } });
-        console.log(existGrade, price, name);
 
         if (!existGrade) {
             const newGrade = Grade.create({

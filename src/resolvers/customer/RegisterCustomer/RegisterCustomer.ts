@@ -1,32 +1,30 @@
 import { getManager } from "typeorm";
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Customer } from "../../../entity/Customer";
+import { isAuth } from "../../../utils/isAuth";
+import { RegisterCustomerInput } from "./registerCustomerInput"
 
 @Resolver()
 export class RegisterCustomerResolver {
+    @UseMiddleware(isAuth)
     @Mutation(() => Customer)
     async registerCustomer(
-        @Arg("name") name: string,
-        @Arg("phone") phone: string,
-        @Arg("address") address: string,
-        @Arg("email") email: string,
-        @Arg("note") note: string
-        // @Arg("data") { orderId, blindId, width, height, handrailType }: CreateItemInput
+        @Arg("data") registerCustomerInput: RegisterCustomerInput
     ): Promise<Customer | undefined> {
 
-        let curCustomer = await Customer.findOne({ where: { email: email }, relations: ["orders"] });
+        let curCustomer = await Customer.findOne({ where: { email: registerCustomerInput.email }, relations: ["orders"] });
 
         if (curCustomer) {
-            throw new Error(`${name} with email "${email}" is already exsite!`);
+            throw new Error(`${name} with email "${registerCustomerInput.email}" is already exsite!`);
         }
 
         curCustomer = Customer.create({
-            name,
-            phone,
-            address,
-            email,
-            note
+            name: registerCustomerInput.name,
+            address: registerCustomerInput.address,
+            phone: registerCustomerInput.phone,
+            email: registerCustomerInput.email,
+            note: registerCustomerInput.note
         });
 
         const newCustomer = Customer.save(curCustomer);
