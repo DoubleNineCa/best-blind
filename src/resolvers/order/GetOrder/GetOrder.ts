@@ -11,10 +11,8 @@ export class GetOrderResolver {
     @UseMiddleware(isAuth)
     @Query(() => Order)
     async getOrder(
-        @Ctx() context: Context,
         @Arg("orderNo") orderNo: string
     ): Promise<Order | undefined> {
-        console.log(context.req.session)
         if (orderNo === "last") {
             const orders = await Order.find({
                 order: { orderNo: "DESC" },
