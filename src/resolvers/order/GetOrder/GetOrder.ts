@@ -11,6 +11,7 @@ export class GetOrderResolver {
     @UseMiddleware(isAuth)
     @Query(() => Order)
     async getOrder(
+        @Ctx() context: Context,
         @Arg("orderNo") orderNo: string
     ): Promise<Order | undefined> {
         if (orderNo === "last") {
