@@ -3,7 +3,7 @@ import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Item } from "../../../entity/Item";
 import { ItemInput } from "../ItemInput";
-import { Part, Type } from "../../../entity/Part";
+import { Part, PartType } from "../../../entity/Part";
 import { Order } from "../../../entity/Order";
 import { Grade } from "../../../entity/Grade";
 import { totalCal } from "../../../utils/TotalCalculator"
@@ -36,7 +36,7 @@ export class CreateItemResolver {
         // extra items won't be adjusted any discount from the top
         const areaMulti = width * height / 10000;
 
-        const basePrice = part.type === Type.FABRIC ? (areaMulti < 1.5 ? 1.5 : Math.round(areaMulti * 10) / 10) * grade.price : grade.price;
+        const basePrice = part.type === PartType.FABRIC ? (areaMulti < 1.5 ? 1.5 : Math.round(areaMulti * 10) / 10) * grade.price : grade.price;
 
         let newItem = Item.create({
             partId,

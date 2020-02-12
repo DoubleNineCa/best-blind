@@ -3,36 +3,36 @@ import { ObjectType, Field, registerEnumType } from "type-graphql";
 
 import { BaseEntityWithUuid } from "../utils/BaseEntityWithUuid";
 
-export enum Type {
+export enum PartType {
     FABRIC = "FABRIC",
     COMPONENT = "COMPONENT"
 }
 
-export enum Kind {
+export enum PartKind {
     COMBI = "COMBI",
     ROLL = "ROLL",
     TRIPLE = "TRIPLE"
 }
 
-registerEnumType(Type, {
-    name: "Type"
+registerEnumType(PartType, {
+    name: "PartType"
 });
 
-registerEnumType(Kind, {
-    name: "Kind"
+registerEnumType(PartKind, {
+    name: "PartKind"
 })
 
 @ObjectType()
 @Entity()
 export class Part extends BaseEntityWithUuid {
 
-    @Field()
+    @Field(() => PartType)
     @Column()
-    type: Type;
+    type: PartType;
 
-    @Field()
-    @Column({ nullable: true })
-    kind: Kind;
+    @Field((() => PartKind))
+    @Column()
+    kind: PartKind;
 
     @Field()
     @Column()
