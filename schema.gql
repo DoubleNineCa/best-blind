@@ -78,6 +78,7 @@ type Mutation {
   updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
   registerPart(data: PartInput!): Part!
   updatePart(data: PartInput!, partId: Float!): Boolean!
+  deletePart(id: Float!): Boolean!
   createItem(data: ItemInput!, partId: Float!, orderId: Float!): Item!
   updateItem(data: ItemInput!, partId: Float!, itemId: Float!): Boolean!
   deleteItem(itemId: Float!): Boolean!
@@ -107,8 +108,8 @@ type Order {
 type Part {
   id: ID!
   uuid: String!
-  type: String!
-  kind: String!
+  type: PartType!
+  kind: PartKind!
   name: String!
   color: String!
   manufacturer: String!
@@ -118,14 +119,25 @@ type Part {
 }
 
 input PartInput {
-  type: String!
-  kind: String
+  type: PartType!
+  kind: PartKind!
   name: String
   color: String
   manufacturer: String
   grade: String
   modelNo: String
   stocks: Float = 0
+}
+
+enum PartKind {
+  COMBI
+  ROLL
+  TRIPLE
+}
+
+enum PartType {
+  FABRIC
+  COMPONENT
 }
 
 input PlaceOrderInput {

@@ -3,15 +3,19 @@ import {
     Column,
     OneToMany
 } from "typeorm";
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field, registerEnumType } from "type-graphql";
 
 import { BaseEntityWithUuid } from "../utils/BaseEntityWithUuid";
 import { Order } from "../entity/Order";
 
-export enum Type {
+export enum CustomerType {
     INDIVIDUAL = "INDIVIDUAL",
     BUSINESS = "BUSINESS"
 }
+
+registerEnumType(CustomerType, {
+    name: "CustomerType"
+});
 
 @ObjectType()
 @Entity()
@@ -37,8 +41,8 @@ export class Customer extends BaseEntityWithUuid {
     orders: Order[];
 
     @Field()
-    @Column({ default: Type.INDIVIDUAL })
-    type: Type;
+    @Column({ default: CustomerType.INDIVIDUAL })
+    type: CustomerType;
 
     @Field()
     @Column({ nullable: true })

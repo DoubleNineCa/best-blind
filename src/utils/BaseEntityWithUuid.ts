@@ -24,13 +24,13 @@ export class BaseEntityWithUuid extends BaseEntity {
 
     @CreateDateColumn({
         type: isTestEnv ? "datetime" : "timestamp",
-        default: () => "CURRENT_TIMESTAMP AT TIME ZONE 'EST'"
+        default: () => "CURRENT_TIMESTAMP"
     })
     createdAt: Date;
 
     @UpdateDateColumn({
         type: isTestEnv ? "datetime" : "timestamp",
-        default: () => "CURRENT_TIMESTAMP AT TIME ZONE 'EST'"
+        default: () => "CURRENT_TIMESTAMP"
     })
     updatedAt: Date;
 

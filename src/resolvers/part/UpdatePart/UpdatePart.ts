@@ -12,7 +12,7 @@ export class UpdatePartResolver {
     async updatePart(
         @Arg("partId") partId: number,
         @Arg("data")
-        { name, color, manufacturer, grade }: PartInput
+        { type, kind, name, color, manufacturer, grade }: PartInput
     ): Promise<Boolean> {
         const part = await Part.findOne(partId);
 
@@ -26,6 +26,8 @@ export class UpdatePartResolver {
                     Part,
                     { id: partId },
                     {
+                        type: type === undefined ? part.type : type,
+                        kind: kind === undefined ? part.kind : kind,
                         name: name === undefined ? part.name : name,
                         color: color === undefined ? part.color : color,
                         manufacturer: manufacturer === undefined ? part.manufacturer : manufacturer,

@@ -1,15 +1,15 @@
 import { Length } from "class-validator";
 import { Field, InputType } from "type-graphql";
 
-import { Type, Kind } from "../../entity/Part";
+import { PartType, PartKind } from "../../entity/Part";
 
 @InputType()
 export class PartInput {
-    @Field()
-    type: Type;
+    @Field(() => PartType)
+    type: PartType;
 
-    @Field({ nullable: true })
-    kind: Kind;
+    @Field(() => PartKind)
+    kind: PartKind;
 
     @Field({ nullable: true })
     @Length(1, 255)
