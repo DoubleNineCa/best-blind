@@ -1,12 +1,12 @@
 import { getManager } from "typeorm";
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
+import { totalCal } from "../../../utils/TotalCalculator";
 import { Item } from "../../../entity/Item";
 import { ItemInput } from "../ItemInput";
 import { Part, PartType } from "../../../entity/Part";
 import { Order } from "../../../entity/Order";
 import { Grade } from "../../../entity/Grade";
-import { totalCal } from "../../../utils/TotalCalculator";
 import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
