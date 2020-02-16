@@ -1,7 +1,7 @@
 import { getManager } from "typeorm";
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
-import { totalCal } from "../../../utils/TotalCalculator";
+import { totalCal } from "../../../utils/totalCalculator";
 import { Item } from "../../../entity/Item";
 import { ItemInput } from "../ItemInput";
 import { Part, PartType } from "../../../entity/Part";
