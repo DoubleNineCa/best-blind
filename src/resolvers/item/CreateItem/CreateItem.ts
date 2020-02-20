@@ -6,7 +6,7 @@ import { ItemInput } from "../ItemInput";
 import { Part, PartType } from "../../../entity/Part";
 import { Order } from "../../../entity/Order";
 import { Grade } from "../../../entity/Grade";
-import { totalCal } from "../../../utils/TotalCalculator"
+import { totalCal } from "../../../utils/totalCalculator";
 import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()

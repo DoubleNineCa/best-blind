@@ -3,7 +3,7 @@ import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Customer } from "../../../entity/Customer";
 import { isAuth } from "../../../utils/isAuth";
-import { RegisterCustomerInput } from "./registerCustomerInput"
+import { RegisterCustomerInput } from "../../../resolvers/customer/RegisterCustomer/RegisterCustomerInput";
 
 @Resolver()
 export class RegisterCustomerResolver {
