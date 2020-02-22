@@ -157,7 +157,7 @@ type Query {
   getCustomer(id: Float!): Customer!
   getGrades: [Grade!]!
   getParts(keyword: String!, type: String!): [Part!]!
-  getOrder(orderNo: String!): Order!
+  getOrder(orderNo: String!): Order
   getOrders: [Order!]!
 }
 

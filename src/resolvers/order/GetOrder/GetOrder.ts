@@ -3,23 +3,21 @@ import { getRepository } from "typeorm";
 
 import { Order } from "../../../entity/Order";
 import { isAuth } from "../../../utils/isAuth";
-import { Context } from "../../../types/Context"
-
 
 @Resolver()
 export class GetOrderResolver {
     @UseMiddleware(isAuth)
-    @Query(() => Order)
+    @Query(() => Order, { nullable: true })
     async getOrder(
         @Arg("orderNo") orderNo: string
-    ): Promise<Order | undefined> {
+    ): Promise<Order | null> {
         if (orderNo === "last") {
             const orders = await Order.find({
                 order: { orderNo: "DESC" },
                 take: 1,
                 relations: ["items", "customer"]
             });
-            return orders[0];
+            return orders ? orders[0] : null;
         }
 
         const orders = await getRepository(Order)
@@ -36,23 +34,6 @@ export class GetOrderResolver {
             .orderBy("item.id", "ASC")
             .getMany();
 
-        return orders[0];
-
-        // await Order.findOne({ where: { orderNo: orderNo }, relations: ["items", "customer"] });
-
-
-        // return await getRepository(Customer)
-        //     .createQueryBuilder("customer")
-        //     .leftJoinAndSelect(
-        //         "customer.orders",
-        //         "order"
-        //     )
-        //     .leftJoinAndSelect(
-        //         "order.items",
-        //         "item"
-        //     )
-        //     .orderBy("order.orderNo", "DESC")
-        //     .addOrderBy("item.id", "ASC")
-        //     .getMany();
+        return orders ? orders[0] : null;
     }
 }
