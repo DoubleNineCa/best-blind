@@ -41,7 +41,7 @@ export class Order extends BaseEntityWithUuid {
     installation: number;
 
     @Field()
-    @Column({ default: 0 })
+    @Column("float", { default: 0 })
     installationDiscount: number;
 
     @Field({ nullable: true })
