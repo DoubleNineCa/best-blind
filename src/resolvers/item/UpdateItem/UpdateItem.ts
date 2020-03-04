@@ -1,10 +1,14 @@
 import { getManager } from "typeorm";
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
+import { Order } from "../../../entity/Order";
 import { Item } from "../../../entity/Item";
-import { Part } from "../../../entity/Part";
+import { Part, PartType } from "../../../entity/Part";
+import { Grade } from "../../../entity/Grade";
 import { ItemInput } from "../ItemInput";
 import { isAuth } from "../../../utils/isAuth";
+import { totalCal } from "../../../utils/totalCalculator";
+
 
 @Resolver()
 export class UpdateItemResolver {
@@ -23,6 +27,16 @@ export class UpdateItemResolver {
             throw new Error("Something went wrong");
         }
 
+        const grade = await Grade.findOne({ where: { name: part.grade } });
+
+        if (!grade) {
+            throw new Error("Price doesn't match");
+        }
+
+        const areaMulti = width * height / 10000;
+
+        const basePrice = part.type === PartType.FABRIC ? (areaMulti < 1.5 ? 1.5 : Math.round(areaMulti * 10) / 10) * grade.price : grade.price;
+
         return getManager().transaction(async transactionalEntityManager => {
             return transactionalEntityManager
                 .update(
@@ -36,10 +50,19 @@ export class UpdateItemResolver {
                         handrailType: handrailType === undefined ? item.handrailType : handrailType,
                         handrailMaterial: handrailMaterial === undefined ? item.handrailMaterial : handrailMaterial,
                         handrailLength: handrailLength === undefined ? item.handrailLength : handrailLength,
-                        coverColor: coverColor === undefined ? item.coverColor : coverColor
+                        coverColor: coverColor === undefined ? item.coverColor : coverColor,
+                        price: basePrice
                     }
                 )
-                .then(() => {
+                .then(async () => {
+                    const order = await Order.findOne(item.order, { relations: ["items"] });
+                    if (!order) {
+                        throw new Error("Something went wrong");
+                    }
+                    order.total = await totalCal(order.items, order.discount, order.installation, order.installationDiscount);
+
+                    Order.save(order);
+
                     return true;
                 })
                 .catch(err => {

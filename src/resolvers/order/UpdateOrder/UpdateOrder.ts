@@ -4,6 +4,7 @@ import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import { Order } from "../../../entity/Order";
 import { isAuth } from "../../../utils/isAuth";
 import { PlaceOrderInput } from "../PlaceOrder/PlaceOrderInput";
+import { totalCal } from "../../../utils/totalCalculator";
 
 
 @Resolver()
@@ -35,7 +36,8 @@ export class UpdateOrderResolver {
                         installationDiscount: installationDiscount === undefined ? order.installationDiscount : installationDiscount,
                         status: status === undefined ? order.status : status,
                         payment: payment === undefined ? order.payment : payment,
-                        installDate: installDate === undefined ? order.installDate : installDate
+                        installDate: installDate === undefined ? order.installDate : installDate,
+                        total: await totalCal(order.items, Number(discount), installation, installationDiscount)
                     }
                 )
                 .then(() => {

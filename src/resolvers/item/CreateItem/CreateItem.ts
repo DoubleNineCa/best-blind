@@ -57,7 +57,7 @@ export class CreateItemResolver {
                 order!.items.push(newItem);
             }
 
-            order.total = await totalCal(order.items, order.deposit, order.discount, order.installation, order.installationDiscount);
+            order.total = await totalCal(order.items, order.discount, order.installation, order.installationDiscount);
             newItem = await transactionalEntityManager.save(newItem);
             await transactionalEntityManager.save(order);
 
