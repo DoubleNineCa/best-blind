@@ -14,7 +14,7 @@ export class UpdateOrderResolver {
     async updateOrder(
         @Arg("orderId") orderId: number,
         @Arg("installDate") installDate: Date,
-        @Arg("invoiceDate") invoiceDate: Date,
+        @Arg("invoiceDate", { nullable: true }) invoiceDate: Date,
         @Arg("data") { hst, deposit, discount, installation, installationDiscount, status, payment }: PlaceOrderInput
     ): Promise<Boolean> {
         const order = await Order.findOne(orderId, { relations: ["items"] });
