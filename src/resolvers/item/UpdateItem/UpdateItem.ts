@@ -44,7 +44,7 @@ export class UpdateItemResolver {
                     {
                         partId: partId === undefined ? item.partId : partId,
                         width: width === undefined ? item.width : width,
-                        itemName: part.name,
+                        itemName: part.name + " " + part.color,
                         height: height === 0 ? item.height : height,
                         handrailType: handrailType === undefined ? item.handrailType : handrailType,
                         handrailMaterial: handrailMaterial === undefined ? item.handrailMaterial : handrailMaterial,
