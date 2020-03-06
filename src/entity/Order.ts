@@ -71,4 +71,8 @@ export class Order extends BaseEntityWithUuid {
     @Field(() => Customer)
     @ManyToOne(() => Customer, customer => customer.orders, { onDelete: "CASCADE" })
     customer: Customer;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invoiceDate: Date;
 }

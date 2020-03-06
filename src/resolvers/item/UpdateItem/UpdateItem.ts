@@ -7,7 +7,7 @@ import { Part, PartType } from "../../../entity/Part";
 import { Grade } from "../../../entity/Grade";
 import { ItemInput } from "../ItemInput";
 import { isAuth } from "../../../utils/isAuth";
-import { totalCal } from "../../../utils/totalCalculator";
+import { totalCal, roundUp } from "../../../utils/totalCalculator";
 
 
 @Resolver()
@@ -35,8 +35,7 @@ export class UpdateItemResolver {
 
         const areaMulti = width * height / 10000;
 
-        const basePrice = part.type === PartType.FABRIC ? (areaMulti < 1.5 ? 1.5 : Math.round(areaMulti * 10) / 10) * grade.price : grade.price;
-
+        const basePrice = part.type === PartType.FABRIC ? (areaMulti < 1.5 ? 1.5 : roundUp(areaMulti, 10)) * grade.price : grade.price;
         return getManager().transaction(async transactionalEntityManager => {
             return transactionalEntityManager
                 .update(

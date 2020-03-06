@@ -6,7 +6,7 @@ import { ItemInput } from "../ItemInput";
 import { Part, PartType } from "../../../entity/Part";
 import { Order } from "../../../entity/Order";
 import { Grade } from "../../../entity/Grade";
-import { totalCal } from "../../../utils/totalCalculator";
+import { totalCal, roundCal, roundUp } from "../../../utils/totalCalculator";
 import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
@@ -36,8 +36,7 @@ export class CreateItemResolver {
         // extra items won't be adjusted any discount from the top
         const areaMulti = width * height / 10000;
 
-        const basePrice = part.type === PartType.FABRIC ? (areaMulti < 1.5 ? 1.5 : Math.round(areaMulti * 10) / 10) * grade.price : grade.price;
-
+        const basePrice = part.type === PartType.FABRIC ? roundUp(areaMulti, 10) * grade.price : grade.price;
         let newItem = Item.create({
             partId,
             itemName: part.name,

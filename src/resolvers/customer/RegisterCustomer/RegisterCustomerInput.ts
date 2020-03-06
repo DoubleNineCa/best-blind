@@ -13,9 +13,9 @@ export class RegisterCustomerInput {
     @Field()
     phone: string;
 
-    @Field()
+    @Field({ nullable: true })
     email: string;
 
-    @Field()
+    @Field({ nullable: true })
     note: string;
 }

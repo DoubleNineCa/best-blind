@@ -62,6 +62,10 @@ export class Item extends BaseEntityWithUuid {
     @Column()
     coverColor: CoverColor;
 
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    roomName: string;
+
     @ManyToOne(() => Order, order => order.items, { onDelete: "CASCADE" })
     order: Order;
 }

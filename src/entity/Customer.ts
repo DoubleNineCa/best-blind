@@ -21,7 +21,7 @@ registerEnumType(CustomerType, {
 @Entity()
 export class Customer extends BaseEntityWithUuid {
     @Field()
-    @Column()
+    @Column({ unique: true })
     name: string;
 
     @Field()
@@ -32,8 +32,8 @@ export class Customer extends BaseEntityWithUuid {
     @Column()
     phone: string;
 
-    @Field()
-    @Column({ unique: true })
+    @Field({ nullable: true })
+    @Column({ nullable: true })
     email: string;
 
     @Field(() => [Order])
@@ -44,7 +44,7 @@ export class Customer extends BaseEntityWithUuid {
     @Column({ default: CustomerType.INDIVIDUAL })
     type: CustomerType;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     note: string;
 }

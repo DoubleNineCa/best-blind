@@ -1,7 +1,7 @@
 import { getManager } from "typeorm";
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
-import { Order } from "../../../entity/Order";
+import { Order, Status } from "../../../entity/Order";
 import { isAuth } from "../../../utils/isAuth";
 import { PlaceOrderInput } from "../PlaceOrder/PlaceOrderInput";
 import { totalCal } from "../../../utils/totalCalculator";
@@ -14,6 +14,7 @@ export class UpdateOrderResolver {
     async updateOrder(
         @Arg("orderId") orderId: number,
         @Arg("installDate") installDate: Date,
+        @Arg("invoiceDate") invoiceDate: Date,
         @Arg("data") { hst, deposit, discount, installation, installationDiscount, status, payment }: PlaceOrderInput
     ): Promise<Boolean> {
         const order = await Order.findOne(orderId, { relations: ["items"] });
@@ -22,6 +23,9 @@ export class UpdateOrderResolver {
             throw new Error("something went wrong");
         }
 
+        if (!order.hst && order.status === Status.MEASURE && invoiceDate === undefined) {
+            invoiceDate = order.invoiceDate;
+        }
 
         return getManager().transaction(async transactionalEntityManager => {
             return transactionalEntityManager
@@ -30,6 +34,7 @@ export class UpdateOrderResolver {
                     { id: orderId },
                     {
                         hst: hst === undefined ? order.hst : hst,
+                        invoiceDate,
                         deposit: deposit === undefined ? order.deposit : deposit,
                         discount: discount === undefined ? order.discount : discount,
                         installation: installation === undefined ? order.installation : installation,

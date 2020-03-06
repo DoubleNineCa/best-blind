@@ -14,10 +14,10 @@ type Customer {
   name: String!
   address: String!
   phone: String!
-  email: String!
+  email: String
   orders: [Order!]!
   type: String!
-  note: String!
+  note: String
 }
 
 """
@@ -49,6 +49,7 @@ type Item {
   handrailType: String!
   handrailLength: Float!
   coverColor: String!
+  roomName: String
 }
 
 input ItemInput {
@@ -83,7 +84,7 @@ type Mutation {
   updateItem(data: ItemInput!, partId: Float!, itemId: Float!): Boolean!
   deleteItem(itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
-  updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
+  updateOrder(data: PlaceOrderInput!, invoiceDate: DateTime!, installDate: DateTime!, orderId: Float!): Boolean!
   deleteOrder(id: Float!): Boolean!
 }
 
@@ -103,6 +104,7 @@ type Order {
   orderDate: DateTime!
   installDate: DateTime
   customer: Customer!
+  invoiceDate: DateTime
 }
 
 type Part {
@@ -165,8 +167,8 @@ input RegisterCustomerInput {
   name: String!
   address: String!
   phone: String!
-  email: String!
-  note: String!
+  email: String
+  note: String
 }
 
 input RegisterInput {
