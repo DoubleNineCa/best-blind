@@ -18,7 +18,7 @@ export class UpdateItemResolver {
         @Arg("itemId") itemId: number,
         @Arg("partId") partId: number,
         @Arg("data")
-        { width, height, handrailType, handrailMaterial, handrailLength, coverColor }: ItemInput
+        { width, height, handrailType, handrailMaterial, handrailLength, coverColor, roomName }: ItemInput
     ): Promise<Boolean> {
         const item = await Item.findOne(itemId);
         const part = await Part.findOne(partId);
@@ -50,7 +50,8 @@ export class UpdateItemResolver {
                         handrailMaterial: handrailMaterial === undefined ? item.handrailMaterial : handrailMaterial,
                         handrailLength: handrailLength === undefined ? item.handrailLength : handrailLength,
                         coverColor: coverColor === undefined ? item.coverColor : coverColor,
-                        price: basePrice
+                        price: basePrice,
+                        roomName: roomName === undefined ? item.roomName : roomName
                     }
                 )
                 .then(async () => {

@@ -53,6 +53,7 @@ type Item {
 }
 
 input ItemInput {
+  roomName: String
   width: Float
   height: Float
   handrailType: String

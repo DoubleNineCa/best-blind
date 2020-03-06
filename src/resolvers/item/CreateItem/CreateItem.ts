@@ -16,7 +16,7 @@ export class CreateItemResolver {
     async createItem(
         @Arg("orderId") orderId: number,
         @Arg("partId") partId: number,
-        @Arg("data") { width, height, handrailType, handrailMaterial, handrailLength, coverColor }: ItemInput
+        @Arg("data") { roomName, width, height, handrailType, handrailMaterial, handrailLength, coverColor }: ItemInput
     ): Promise<Item | undefined> {
 
         const order = await Order.findOne(orderId, { relations: ["items"] });
@@ -39,14 +39,15 @@ export class CreateItemResolver {
         const basePrice = part.type === PartType.FABRIC ? roundUp(areaMulti, 10) * grade.price : grade.price;
         let newItem = Item.create({
             partId,
-            itemName: part.name,
+            itemName: part.name + " " + part.color,
             width,
             height,
             price: basePrice,
             handrailType,
             handrailMaterial,
             handrailLength,
-            coverColor
+            coverColor,
+            roomName
         })
 
         await getManager().transaction(async transactionalEntityManager => {
