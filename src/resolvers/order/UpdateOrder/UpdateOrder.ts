@@ -14,8 +14,7 @@ export class UpdateOrderResolver {
     async updateOrder(
         @Arg("orderId") orderId: number,
         @Arg("installDate") installDate: Date,
-        @Arg("invoiceDate", { nullable: true }) invoiceDate: Date,
-        @Arg("data") { hst, deposit, discount, installation, installationDiscount, status, payment }: PlaceOrderInput
+        @Arg("data") { hst, deposit, discount, installation, installationDiscount, status, payment, invoiceDate }: PlaceOrderInput
     ): Promise<Boolean> {
         const order = await Order.findOne(orderId, { relations: ["items"] });
         // hst, deposit, installation, total, status, payment, installDate
@@ -34,7 +33,7 @@ export class UpdateOrderResolver {
                     { id: orderId },
                     {
                         hst: hst === undefined ? order.hst : hst,
-                        invoiceDate,
+                        invoiceDate: invoiceDate === undefined ? order.invoiceDate : invoiceDate,
                         deposit: deposit === undefined ? order.deposit : deposit,
                         discount: discount === undefined ? order.discount : discount,
                         installation: installation === undefined ? order.installation : installation,
@@ -42,7 +41,7 @@ export class UpdateOrderResolver {
                         status: status === undefined ? order.status : status,
                         payment: payment === undefined ? order.payment : payment,
                         installDate: installDate === undefined ? order.installDate : installDate,
-                        total: await totalCal(order.items, Number(discount), installation, installationDiscount)
+                        total: await totalCal(order.items, Number(discount), installation, installationDiscount),
                     }
                 )
                 .then(() => {

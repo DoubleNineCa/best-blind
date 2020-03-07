@@ -85,7 +85,7 @@ type Mutation {
   updateItem(data: ItemInput!, partId: Float!, itemId: Float!): Boolean!
   deleteItem(itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
-  updateOrder(data: PlaceOrderInput!, invoiceDate: DateTime, installDate: DateTime!, orderId: Float!): Boolean!
+  updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
   deleteOrder(id: Float!): Boolean!
 }
 
@@ -153,6 +153,7 @@ input PlaceOrderInput {
   installationDiscount: Float = 0
   status: String
   payment: String
+  invoiceDate: DateTime
 }
 
 type Query {

@@ -33,4 +33,7 @@ export class PlaceOrderInput {
     @Field({ nullable: true })
     payment?: string;
 
+    @Field({ nullable: true })
+    invoiceDate?: Date;
+
 }
