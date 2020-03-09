@@ -16,6 +16,18 @@ export class PlaceOrderInput {
     hst?: boolean;
 
     @Field({ nullable: true })
+    invAddress: string;
+
+    @Field({ nullable: true })
+    invCity: string;
+
+    @Field({ nullable: true })
+    invProvince: string;
+
+    @Field({ nullable: true })
+    invPostal: string
+
+    @Field({ nullable: true })
     deposit?: number;
 
     @Field({ nullable: true })

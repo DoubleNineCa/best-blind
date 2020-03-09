@@ -75,4 +75,20 @@ export class Order extends BaseEntityWithUuid {
     @Field({ nullable: true })
     @Column({ nullable: true })
     invoiceDate: Date;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invAddress: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invCity: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invProvince: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invPostal: string;
 }

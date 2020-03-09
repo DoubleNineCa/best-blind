@@ -11,6 +11,15 @@ export class UpdateCustomerInput {
     address: string;
 
     @Field({ nullable: true })
+    city: string;
+
+    @Field({ nullable: true })
+    province: string;
+
+    @Field({ nullable: true })
+    postal: string;
+
+    @Field({ nullable: true })
     phone: string;
 
     @Field({ nullable: true })

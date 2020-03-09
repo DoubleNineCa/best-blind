@@ -13,6 +13,9 @@ type Customer {
   uuid: String!
   name: String!
   address: String!
+  city: String
+  province: String
+  postal: String
   phone: String!
   email: String
   orders: [Order!]!
@@ -106,6 +109,10 @@ type Order {
   installDate: DateTime
   customer: Customer!
   invoiceDate: DateTime
+  invAddress: String
+  invCity: String
+  invProvince: String
+  invPostal: String
 }
 
 type Part {
@@ -147,6 +154,10 @@ input PlaceOrderInput {
   customerId: Float!
   orderNo: String!
   hst: Boolean
+  invAddress: String
+  invCity: String
+  invProvince: String
+  invPostal: String
   deposit: Float
   discount: Float
   installation: Float = 0
@@ -168,6 +179,9 @@ type Query {
 input RegisterCustomerInput {
   name: String!
   address: String!
+  city: String
+  province: String
+  postal: String
   phone: String!
   email: String
   note: String
@@ -196,6 +210,9 @@ enum Status {
 input UpdateCustomerInput {
   name: String
   address: String
+  city: String
+  province: String
+  postal: String
   phone: String
   email: String
   note: String

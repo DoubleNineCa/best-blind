@@ -28,6 +28,18 @@ export class Customer extends BaseEntityWithUuid {
     @Column()
     address: string;
 
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    city: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    province: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    postal: string;
+
     @Field()
     @Column()
     phone: string;
