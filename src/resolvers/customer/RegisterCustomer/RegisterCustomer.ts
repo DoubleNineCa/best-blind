@@ -22,6 +22,9 @@ export class RegisterCustomerResolver {
         curCustomer = Customer.create({
             name: registerCustomerInput.name,
             address: registerCustomerInput.address,
+            city: registerCustomerInput.city,
+            province: registerCustomerInput.province,
+            postal: registerCustomerInput.postal,
             phone: registerCustomerInput.phone,
             email: registerCustomerInput.email,
             note: registerCustomerInput.note

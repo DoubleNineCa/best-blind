@@ -9,7 +9,7 @@ export enum Status {
     MEASURE = "MEASURE",
     MANUFACTURE = "MANUFACTURE",
     INSTALL = "INSTALL",
-    RAMAINING = "RAMAINING",
+    REMAINING = "REMAINING",
     COMPLETE = "COMPLETE"
 }
 
