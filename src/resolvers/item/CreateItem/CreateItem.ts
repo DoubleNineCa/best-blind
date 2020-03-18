@@ -34,7 +34,7 @@ export class CreateItemResolver {
         // basically, 1.5 width * height / 10000 is the minimum
         // installation fee should be given at least 2 inputs one for regular the other is for discount separately.
         // extra items won't be adjusted any discount from the top
-        const areaMulti = width * height / 10000;
+        const areaMulti = width * height / 10000 > 1.5 ? width * height / 10000 : 1.5;
 
         const basePrice = part.type === PartType.FABRIC ? roundUp(areaMulti, 10) * grade.price : grade.price;
         let newItem = Item.create({

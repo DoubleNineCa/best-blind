@@ -20,7 +20,7 @@ export class UpdateItemResolver {
         @Arg("data")
         { width, height, handrailType, handrailMaterial, handrailLength, coverColor, roomName }: ItemInput
     ): Promise<Boolean> {
-        const item = await Item.findOne(itemId);
+        const item = await Item.findOne(itemId, { relations: ["order"] });
         const part = await Part.findOne(partId);
 
         if (!part || !item) {
@@ -55,10 +55,11 @@ export class UpdateItemResolver {
                     }
                 )
                 .then(async () => {
-                    const order = await Order.findOne(item.order, { relations: ["items"] });
+                    const order = await Order.findOne(item.order.id, { relations: ["items"] });
                     if (!order) {
                         throw new Error("Something went wrong");
                     }
+
                     order.total = await totalCal(order.items, order.discount, order.installation, order.installationDiscount);
 
                     Order.save(order);

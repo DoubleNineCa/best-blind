@@ -7,6 +7,6 @@ import { isAuth } from "../../../utils/isAuth";
 export class GetGradesResolver {
     @Query(() => [Grade])
     async getGrades(): Promise<Grade[]> {
-        return Grade.find();
+        return Grade.find({ order: { id: "ASC" } });
     }
 }
