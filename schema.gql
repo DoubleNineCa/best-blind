@@ -13,11 +13,14 @@ type Customer {
   uuid: String!
   name: String!
   address: String!
+  city: String
+  province: String
+  postal: String
   phone: String!
-  email: String!
+  email: String
   orders: [Order!]!
   type: String!
-  note: String!
+  note: String
 }
 
 """
@@ -49,9 +52,11 @@ type Item {
   handrailType: String!
   handrailLength: Float!
   coverColor: String!
+  roomName: String
 }
 
 input ItemInput {
+  roomName: String
   width: Float
   height: Float
   handrailType: String
@@ -84,6 +89,7 @@ type Mutation {
   deleteItem(itemId: Float!): Boolean!
   placeOrder(data: PlaceOrderInput!): Order!
   updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
+  updateStep(orderId: Float!): Boolean!
   deleteOrder(id: Float!): Boolean!
 }
 
@@ -103,6 +109,11 @@ type Order {
   orderDate: DateTime!
   installDate: DateTime
   customer: Customer!
+  invoiceDate: DateTime
+  invAddress: String
+  invCity: String
+  invProvince: String
+  invPostal: String
 }
 
 type Part {
@@ -144,12 +155,17 @@ input PlaceOrderInput {
   customerId: Float!
   orderNo: String!
   hst: Boolean
+  invAddress: String
+  invCity: String
+  invProvince: String
+  invPostal: String
   deposit: Float
   discount: Float
   installation: Float = 0
   installationDiscount: Float = 0
   status: String
   payment: String
+  invoiceDate: DateTime
 }
 
 type Query {
@@ -157,16 +173,19 @@ type Query {
   getCustomer(id: Float!): Customer!
   getGrades: [Grade!]!
   getParts(keyword: String!, type: String!): [Part!]!
-  getOrder(orderNo: String!): Order!
+  getOrder(orderNo: String!): Order
   getOrders: [Order!]!
 }
 
 input RegisterCustomerInput {
   name: String!
   address: String!
+  city: String
+  province: String
+  postal: String
   phone: String!
-  email: String!
-  note: String!
+  email: String
+  note: String
 }
 
 input RegisterInput {
@@ -185,13 +204,16 @@ enum Status {
   MEASURE
   MANUFACTURE
   INSTALL
-  RAMAINING
+  REMAINING
   COMPLETE
 }
 
 input UpdateCustomerInput {
   name: String
   address: String
+  city: String
+  province: String
+  postal: String
   phone: String
   email: String
   note: String

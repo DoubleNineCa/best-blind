@@ -30,7 +30,9 @@ const server = new ApolloServer({
         req,
         res,
         sessionStore
-    })
+    }),
+    introspection: true,
+    playground: true,
 });
 
 const app = express();

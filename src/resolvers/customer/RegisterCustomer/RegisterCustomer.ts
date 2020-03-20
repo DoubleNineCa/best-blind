@@ -3,7 +3,7 @@ import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 import { Customer } from "../../../entity/Customer";
 import { isAuth } from "../../../utils/isAuth";
-import { RegisterCustomerInput } from "./registerCustomerInput"
+import { RegisterCustomerInput } from "../../../resolvers/customer/RegisterCustomer/RegisterCustomerInput";
 
 @Resolver()
 export class RegisterCustomerResolver {
@@ -22,6 +22,9 @@ export class RegisterCustomerResolver {
         curCustomer = Customer.create({
             name: registerCustomerInput.name,
             address: registerCustomerInput.address,
+            city: registerCustomerInput.city,
+            province: registerCustomerInput.province,
+            postal: registerCustomerInput.postal,
             phone: registerCustomerInput.phone,
             email: registerCustomerInput.email,
             note: registerCustomerInput.note

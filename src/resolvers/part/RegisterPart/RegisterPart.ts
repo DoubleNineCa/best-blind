@@ -13,7 +13,7 @@ export class RegisterPartResolver {
         @Arg("data") { type, kind, name, manufacturer, color, grade, modelNo, stocks }: PartInput
     ): Promise<Part | undefined> {
 
-        let existFabric = await Part.findOne({ where: { name: name } });
+        let existFabric = await Part.findOne({ where: { name: name, color: color } });
 
         if (!existFabric) {
             const selectedGrade = await Grade.findOne({ where: { name: grade } });

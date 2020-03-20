@@ -10,7 +10,6 @@ import { isAuth } from "../../../utils/isAuth";
 
 @Resolver()
 export class RegisterStaffResolver {
-    @UseMiddleware(isAuth)
     @Mutation(() => Staff)
     async registerStaff(
         @Arg("data")

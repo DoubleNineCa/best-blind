@@ -11,7 +11,21 @@ export class PlaceOrderResolver {
     @UseMiddleware(isAuth)
     @Mutation(() => Order)
     async placeOrder(
-        @Arg("data") { customerId, orderNo, hst, deposit, discount, installation, installationDiscount, status, payment }: PlaceOrderInput
+        @Arg("data") {
+            customerId,
+            orderNo,
+            hst,
+            deposit,
+            discount,
+            installation,
+            installationDiscount,
+            status,
+            payment,
+            invoiceDate,
+            invAddress,
+            invCity,
+            invProvince,
+            invPostal }: PlaceOrderInput
     ): Promise<Order | undefined> {
 
         const customer = await Customer.findOne(customerId, { relations: ["orders", "orders.items"] });
@@ -35,7 +49,12 @@ export class PlaceOrderResolver {
             installationDiscount,
             status,
             payment,
-            orderDate: new Date()
+            orderDate: new Date(),
+            invoiceDate,
+            invAddress,
+            invCity,
+            invProvince,
+            invPostal
         });
 
         await getManager().transaction(async transactionalEntityManager => {

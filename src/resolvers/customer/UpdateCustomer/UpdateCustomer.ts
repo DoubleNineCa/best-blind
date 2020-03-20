@@ -28,6 +28,9 @@ export class UpdateCustomerResolver {
                     {
                         name: updateCustomerInput.name === undefined ? curCustomer.name : updateCustomerInput.name,
                         address: updateCustomerInput.address === undefined ? curCustomer.address : updateCustomerInput.address,
+                        city: updateCustomerInput.city === undefined ? curCustomer.city : updateCustomerInput.city,
+                        province: updateCustomerInput.province === undefined ? curCustomer.province : updateCustomerInput.province,
+                        postal: updateCustomerInput.postal === undefined ? curCustomer.postal : updateCustomerInput.postal,
                         phone: updateCustomerInput.phone === undefined ? curCustomer.phone : updateCustomerInput.phone,
                         note: updateCustomerInput.note === undefined ? curCustomer.note : updateCustomerInput.note,
                         email: updateCustomerInput.email === undefined ? curCustomer.email : updateCustomerInput.email

@@ -10,12 +10,21 @@ export class RegisterCustomerInput {
     @Field()
     address: string;
 
+    @Field({ nullable: true })
+    city: string;
+
+    @Field({ nullable: true })
+    province: string;
+
+    @Field({ nullable: true })
+    postal: string;
+
     @Field()
     phone: string;
 
-    @Field()
+    @Field({ nullable: true })
     email: string;
 
-    @Field()
+    @Field({ nullable: true })
     note: string;
 }

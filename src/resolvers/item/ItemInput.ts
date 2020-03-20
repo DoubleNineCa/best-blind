@@ -4,12 +4,8 @@ import { Material, CoverColor } from "../../entity/Item";
 
 @InputType()
 export class ItemInput {
-
-    // @Field()
-    // orderId: number;
-
-    // @Field()
-    // blindId: number;
+    @Field({ nullable: true })
+    roomName: string;
 
     @Field({ nullable: true })
     width: number;

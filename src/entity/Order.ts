@@ -9,7 +9,7 @@ export enum Status {
     MEASURE = "MEASURE",
     MANUFACTURE = "MANUFACTURE",
     INSTALL = "INSTALL",
-    RAMAINING = "RAMAINING",
+    REMAINING = "REMAINING",
     COMPLETE = "COMPLETE"
 }
 
@@ -41,7 +41,7 @@ export class Order extends BaseEntityWithUuid {
     installation: number;
 
     @Field()
-    @Column({ default: 0 })
+    @Column("float", { default: 0 })
     installationDiscount: number;
 
     @Field({ nullable: true })
@@ -71,4 +71,24 @@ export class Order extends BaseEntityWithUuid {
     @Field(() => Customer)
     @ManyToOne(() => Customer, customer => customer.orders, { onDelete: "CASCADE" })
     customer: Customer;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invoiceDate: Date;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invAddress: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invCity: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invProvince: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    invPostal: string;
 }
