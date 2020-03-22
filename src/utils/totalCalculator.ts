@@ -1,9 +1,11 @@
 import { Item } from "../entity/Item"
+import { PartType } from "../entity/Part";
 
 export const totalCal =
     async (items: Item[], discount: number, installation: number, installationDiscount: number) => {
         const total = items.reduce((accumulator, item) => {
-            return accumulator + (item.price - Math.floor(item.price * discount) / 100);
+            const singlePrice = item.partType === PartType.FABRIC ? (item.price - Math.floor(item.price * discount) / 100) : item.price * item.handrailLength;
+            return accumulator + singlePrice;
         }, 0);
         return roundCal(total + installation - installationDiscount, 100);
     }

@@ -40,7 +40,7 @@ export class CreateItemResolver {
         let newItem = Item.create({
             partId,
             partType: part.type,
-            itemName: part.name + " " + part.color,
+            itemName: part.color !== "0" && part.color !== "NONE" ? part.name + " " + part.color : part.name,
             width,
             height,
             price: basePrice,
