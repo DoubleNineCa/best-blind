@@ -43,6 +43,7 @@ export class UpdateItemResolver {
                     { id: itemId },
                     {
                         partId: partId === undefined ? item.partId : partId,
+                        partType: part.type,
                         width: width === undefined ? item.width : width,
                         itemName: part.name + " " + part.color,
                         height: height === 0 ? item.height : height,

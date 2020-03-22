@@ -44,6 +44,7 @@ type Item {
   id: ID!
   uuid: String!
   partId: Float!
+  partType: String!
   itemName: String!
   width: Float!
   height: Float!
@@ -81,6 +82,7 @@ type Mutation {
   deleteCustomer(id: Float!): Boolean!
   registerGrade(data: GradeInput!): Grade!
   updateGrade(data: GradeInput!, gradeId: Float!): Boolean!
+  deleteGrade(gradeId: Float!): Boolean!
   registerPart(data: PartInput!): Part!
   updatePart(data: PartInput!, partId: Float!): Boolean!
   deletePart(id: Float!): Boolean!
@@ -144,6 +146,7 @@ enum PartKind {
   COMBI
   ROLL
   TRIPLE
+  COMPONENT
 }
 
 enum PartType {

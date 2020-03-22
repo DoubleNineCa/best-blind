@@ -3,6 +3,7 @@ import { ObjectType, Field, registerEnumType } from "type-graphql";
 
 import { BaseEntityWithUuid } from "../utils/BaseEntityWithUuid";
 import { Order } from "../entity/Order";
+import { PartType } from "./Part";
 
 export enum Material {
     BASIC = "BASIC",
@@ -29,6 +30,10 @@ export class Item extends BaseEntityWithUuid {
     @Field()
     @Column()
     partId: number;
+
+    @Field()
+    @Column({ nullable: true })
+    partType: PartType;
 
     @Field()
     @Column()

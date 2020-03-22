@@ -2,7 +2,8 @@ import { Resolver } from "type-graphql";
 
 import { RegisterGradeResolver } from "../grade/RegisterGrade/RegisterGrade";
 import { GetGradesResolver } from "../grade/GetGrades/GetGrades";
-import { UpdateGradeResolver } from "../grade/UpdateGrade/UpdateGrade"
+import { UpdateGradeResolver } from "../grade/UpdateGrade/UpdateGrade";
+import { DeleteGradeResolver } from "../grade/DeleteGrade/DeleteGrade";
 
 @Resolver()
 class GradeResolver { }
@@ -10,5 +11,6 @@ class GradeResolver { }
 export default Object.assign(
     RegisterGradeResolver,
     GetGradesResolver,
-    UpdateGradeResolver
+    UpdateGradeResolver,
+    DeleteGradeResolver
 );

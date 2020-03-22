@@ -11,7 +11,8 @@ export enum PartType {
 export enum PartKind {
     COMBI = "COMBI",
     ROLL = "ROLL",
-    TRIPLE = "TRIPLE"
+    TRIPLE = "TRIPLE",
+    COMPONENT = "COMPONENT"
 }
 
 registerEnumType(PartType, {

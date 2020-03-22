@@ -39,6 +39,7 @@ export class CreateItemResolver {
         const basePrice = part.type === PartType.FABRIC ? roundUp(areaMulti, 10) * grade.price : grade.price;
         let newItem = Item.create({
             partId,
+            partType: part.type,
             itemName: part.name + " " + part.color,
             width,
             height,
