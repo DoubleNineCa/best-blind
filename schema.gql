@@ -8,6 +8,12 @@ type BaseEntityWithUuid {
   uuid: String!
 }
 
+type Color {
+  id: ID!
+  uuid: String!
+  color: String!
+}
+
 type Customer {
   id: ID!
   uuid: String!
@@ -93,6 +99,8 @@ type Mutation {
   updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
   updateStep(orderId: Float!): Boolean!
   deleteOrder(id: Float!): Boolean!
+  addColor(color: String!): Color!
+  deleteColor(color: String!): Boolean!
 }
 
 type Order {
@@ -178,6 +186,7 @@ type Query {
   getParts(keyword: String!, type: String!): [Part!]!
   getOrder(orderNo: String!): Order
   getOrders: [Order!]!
+  getColors: [Color!]!
 }
 
 input RegisterCustomerInput {
