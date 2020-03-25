@@ -8,15 +8,15 @@ export class DeleteOrderResolver {
     @UseMiddleware(isAuth)
     @Mutation(() => Boolean)
     async deleteOrder(
-        @Arg("id") id: number,
+        @Arg("orderNo") orderNo: number,
     ): Promise<Boolean> {
-        const order = await Order.findOne(id, { relations: ["items"] });
+        const order = await Order.findOne({ where: { orderNo: orderNo }, relations: ["items"] });
 
         if (!order) {
             throw new Error("Something went wrong");
         }
 
-        await Order.delete(id);
+        await Order.remove(order);
 
         return true;
     }

@@ -98,7 +98,7 @@ type Mutation {
   placeOrder(data: PlaceOrderInput!): Order!
   updateOrder(data: PlaceOrderInput!, installDate: DateTime!, orderId: Float!): Boolean!
   updateStep(orderId: Float!): Boolean!
-  deleteOrder(id: Float!): Boolean!
+  deleteOrder(orderNo: Float!): Boolean!
   addColor(color: String!): Color!
   deleteColor(color: String!): Boolean!
 }
