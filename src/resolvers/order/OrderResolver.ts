@@ -6,6 +6,7 @@ import { GetOrdersResolver } from "../../resolvers/order/GetOrder/GetOrders";
 import { UpdateOrderResolver } from "../../resolvers/order/UpdateOrder/UpdateOrder";
 import { UpdateStepResolver } from "../../resolvers/order/UpdateOrder/UpdateStep";
 import { DeleteOrderResolver } from "../../resolvers/order/DeleteOrder/DeleteOrder";
+import { GetSalesOrdersResolver } from "../../resolvers/order/GetOrder/GetSalesOrders";
 
 @Resolver()
 class OrderResolver { }
@@ -16,5 +17,6 @@ export default Object.assign(
     GetOrdersResolver,
     UpdateOrderResolver,
     UpdateStepResolver,
-    DeleteOrderResolver
+    DeleteOrderResolver,
+    GetSalesOrdersResolver
 );

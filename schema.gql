@@ -186,6 +186,7 @@ type Query {
   getParts(keyword: String!, type: String!): [Part!]!
   getOrder(orderNo: String!): Order
   getOrders: [Order!]!
+  getSalesOrders(year: String!): [Order!]!
   getColors: [Color!]!
 }
 
