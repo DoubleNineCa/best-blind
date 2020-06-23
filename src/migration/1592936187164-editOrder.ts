@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class editOrder1592923702110 implements MigrationInterface {
-    name = 'editOrder1592923702110'
+export class editOrder1592936187164 implements MigrationInterface {
+    name = 'editOrder1592936187164'
 
     public async up(queryRunner: QueryRunner): Promise<any> {
-        await queryRunner.query(`ALTER TABLE "order" ADD "midPayment" integer NOT NULL DEFAULT 0`, undefined);
-        await queryRunner.query(`ALTER TABLE "order" ADD "finalPayment" integer NOT NULL DEFAULT 0`, undefined);
+        await queryRunner.query(`ALTER TABLE "order" ADD "midPayment" character varying NOT NULL DEFAULT ''`, undefined);
+        await queryRunner.query(`ALTER TABLE "order" ADD "finalPayment" character varying NOT NULL DEFAULT ''`, undefined);
     }
 
     public async down(queryRunner: QueryRunner): Promise<any> {

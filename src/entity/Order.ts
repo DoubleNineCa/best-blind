@@ -93,10 +93,10 @@ export class Order extends BaseEntityWithUuid {
     invPostal: string;
 
     @Field()
-    @Column({ default: 0 })
-    midPayment: number;
+    @Column({ default: "" })
+    midPayment: string;
 
     @Field()
-    @Column({ default: 0 })
-    finalPayment: number;
+    @Column({ default: "" })
+    finalPayment: string;
 }
