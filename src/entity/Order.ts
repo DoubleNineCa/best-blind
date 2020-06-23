@@ -91,4 +91,12 @@ export class Order extends BaseEntityWithUuid {
     @Field({ nullable: true })
     @Column({ nullable: true })
     invPostal: string;
+
+    @Field()
+    @Column({ default: 0 })
+    midPayment: number;
+
+    @Field()
+    @Column({ default: 0 })
+    finalPayment: number;
 }

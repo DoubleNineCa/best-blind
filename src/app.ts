@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === "test") {
 
 
 const schema = buildGraphqlSchema();
+
 const server = new ApolloServer({
     schema,
     context: ({ req, res }: any) => ({
@@ -37,13 +38,6 @@ const server = new ApolloServer({
 
 const app = express();
 
-// app.use(
-//     cors({
-//         credentials: true,
-//         origin: "http://localhost:3000"
-//     })
-// )
-
 app.use(
     session({
         store: sessionStore,
@@ -55,7 +49,7 @@ app.use(
             httpOnly: true,
             secure: false,
             // secure: process.env.NODE_ENV === "production", TODO: uncomment this when we get https
-            maxAge: 1000 * 60 * 60 * 24 // 20 mins
+            maxAge: 1000 * 60 * 60 * 24 // 1 day
             // maxAge: 1000 * 60 * 60 * 24 * 30 // 30 days
         }
     })
@@ -65,7 +59,7 @@ app.get("/", (_: any, res: any) => {
     res.send("Hello World");
 });
 
-
 server.applyMiddleware({ app, cors: { origin: process.env.FRONTEND_URL, credentials: true } });
+
 
 export default app;

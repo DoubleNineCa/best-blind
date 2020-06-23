@@ -124,6 +124,8 @@ type Order {
   invCity: String
   invProvince: String
   invPostal: String
+  midPayment: Float!
+  finalPayment: Float!
 }
 
 type Part {
@@ -177,6 +179,8 @@ input PlaceOrderInput {
   status: String
   payment: String
   invoiceDate: DateTime
+  midPayment: Float
+  finalPayment: Float
 }
 
 type Query {
