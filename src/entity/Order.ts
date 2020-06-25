@@ -99,4 +99,8 @@ export class Order extends BaseEntityWithUuid {
     @Field()
     @Column({ default: "" })
     finalPayment: string;
+
+    @Field({ nullable: true })
+    @Column({ default: "" })
+    installAddress: string;
 }

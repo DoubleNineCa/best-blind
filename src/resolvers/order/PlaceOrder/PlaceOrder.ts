@@ -25,7 +25,8 @@ export class PlaceOrderResolver {
             invAddress,
             invCity,
             invProvince,
-            invPostal }: PlaceOrderInput
+            invPostal,
+            installAddress }: PlaceOrderInput
     ): Promise<Order | undefined> {
 
         const customer = await Customer.findOne(customerId, { relations: ["orders", "orders.items"] });
@@ -54,7 +55,8 @@ export class PlaceOrderResolver {
             invAddress,
             invCity,
             invProvince,
-            invPostal
+            invPostal,
+            installAddress
         });
 
         await getManager().transaction(async transactionalEntityManager => {

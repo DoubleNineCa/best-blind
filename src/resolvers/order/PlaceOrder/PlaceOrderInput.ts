@@ -53,4 +53,7 @@ export class PlaceOrderInput {
 
     @Field({ nullable: true })
     finalPayment: string;
+
+    @Field({ nullable: true })
+    installAddress: string;
 }

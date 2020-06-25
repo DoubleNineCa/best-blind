@@ -126,6 +126,7 @@ type Order {
   invPostal: String
   midPayment: String!
   finalPayment: String!
+  installAddress: String
 }
 
 type Part {
@@ -181,6 +182,7 @@ input PlaceOrderInput {
   invoiceDate: DateTime
   midPayment: String
   finalPayment: String
+  installAddress: String
 }
 
 type Query {

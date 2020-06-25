@@ -28,7 +28,8 @@ export class UpdateOrderResolver {
             invProvince,
             invPostal,
             midPayment,
-            finalPayment }: PlaceOrderInput
+            finalPayment,
+            installAddress }: PlaceOrderInput
     ): Promise<Boolean> {
         const order = await Order.findOne(orderId, { relations: ["items"] });
         // hst, deposit, installation, total, status, payment, installDate
@@ -61,7 +62,8 @@ export class UpdateOrderResolver {
                         invProvince: invProvince === undefined ? order.invProvince : invProvince,
                         invPostal: invPostal === undefined ? order.invPostal : invPostal,
                         midPayment: midPayment === undefined ? order.midPayment : midPayment,
-                        finalPayment: finalPayment === undefined ? order.finalPayment : finalPayment
+                        finalPayment: finalPayment === undefined ? order.finalPayment : finalPayment,
+                        installAddress: installAddress === undefined ? order.installAddress : installAddress
                     }
                 )
                 .then(() => {
